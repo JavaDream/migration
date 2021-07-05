@@ -1,20 +1,24 @@
 package info.dreamcoder;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import static info.dreamcoder.Migration.createTable;
+import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-{
-    /**
-     * Rigorous Test :-)
-     */
+
+public class AppTest {
+
+
     @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
+    public void shouldCreateTable() {
+        Table table = createTable("test_table", (t) -> {
+            t.string("test_string_column");
+        });
+        assertEquals(
+                table.toSql(), "CREATE TABLE test_table\n" +
+                        "(\n" +
+                        "test_string_column varchar(255)\n" +
+                        ")"
+        );
     }
 }

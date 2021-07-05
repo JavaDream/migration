@@ -7,10 +7,10 @@ package info.dreamcoder;
 public class Migration  {
 
 
-    public static void createTable(String name, ITableRun run) {
+    public static Table createTable(String name, ITableRun run) {
         Table table = new Table(name);
         run.action(table);
-        System.out.println(table.toSql());
+        return table;
     }
 
     public static void main( String[] args ) {
