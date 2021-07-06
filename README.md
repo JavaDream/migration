@@ -13,3 +13,14 @@ java 项目的数据migration工具
 3. 支持SpringBoot, Quarkus等Java框架。
 4. 支持Kotlin更简便的语法。
 5. 支持多种数据库，Mysql，Postgresql等。
+
+## 使用
+
+```java
+
+createTable("test_table", (t) -> {
+    t.string("test_string_column");
+    t.integer("test_int_column");
+});
+
+```
