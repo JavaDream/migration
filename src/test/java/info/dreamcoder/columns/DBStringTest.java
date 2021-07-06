@@ -1,5 +1,6 @@
-package info.dreamcoder;
+package info.dreamcoder.columns;
 
+import info.dreamcoder.columns.DBString;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,9 @@
 package info.dreamcoder;
 
 
+import info.dreamcoder.columns.DBColumn;
+import info.dreamcoder.columns.DBString;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +19,10 @@ public class Table {
         DBString column = new DBString(name);
         columns.add(column);
     }
+
+//    TODO:
+//     1. 添加integer方法
+//     2. 添加 timestamps方法
 
     public String toSql() {
         String sql = "CREATE TABLE " + this.name + "\n";

@@ -1,4 +1,4 @@
-package info.dreamcoder;
+package info.dreamcoder.columns;
 
 public class DBString extends DBColumn {
 
