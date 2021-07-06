@@ -1,4 +1,7 @@
 # migration
+
+[![Java CI with Maven](https://github.com/JavaDream/migration/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/JavaDream/migration/actions/workflows/maven.yml)
+
 java 项目的数据migration工具
 
 ## 为什么要有这个项目
