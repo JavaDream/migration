@@ -1,6 +1,5 @@
 package info.dreamcoder.columns;
 
-import info.dreamcoder.columns.DBInteger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

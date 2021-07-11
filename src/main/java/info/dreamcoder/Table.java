@@ -2,7 +2,9 @@ package info.dreamcoder;
 
 
 import info.dreamcoder.columns.DBColumn;
+import info.dreamcoder.columns.DBInteger;
 import info.dreamcoder.columns.DBString;
+import info.dreamcoder.columns.DBTimestamp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +22,17 @@ public class Table {
         columns.add(column);
     }
 
-//    TODO:
-//     1. 添加integer方法
-//     2. 添加 timestamps方法
+    public void integer(String name) {
+        DBInteger column = new DBInteger(name);
+        columns.add(column);
+    }
+
+    public void timestamps() {
+        DBTimestamp createdAt = new DBTimestamp("created_at");
+        DBTimestamp updatedAt = new DBTimestamp("updated_at");
+        columns.add(createdAt);
+        columns.add(updatedAt);
+    }
 
     public String toSql() {
         String sql = "CREATE TABLE " + this.name + "\n";
