@@ -41,8 +41,8 @@ jobs:
         java-version: '16'
         distribution: 'adopt'
         
-    - name: Official SonarQube Scan
-      uses: SonarSource/sonarqube-scan-action@v1.0.0
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1.6
       
     - name: Shutdown Ubuntu MySQL (SUDO)
       run: sudo service mysql stop
