@@ -16,9 +16,9 @@ class DatabaseTest {
     public static void createDatabase() {
         try {
             database = new Database(
-                    System.getenv("mysql_url"),
-                    System.getenv("mysql_username"),
-                    System.getenv("mysql_password")
+                    System.getenv("MYSQL_URL"),
+                    System.getenv("MYSQL_USERNAME"),
+                    System.getenv("MYSQL_PASSWORD")
             );
         } catch (SQLException e) {
             e.printStackTrace();
