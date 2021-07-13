@@ -27,6 +27,11 @@ jobs:
   test:
     
     runs-on: ubuntu-latest
+    env:
+      MYSQL_URL: ${{ secrets.MysqlUrl }}
+      MYSQL_USERNAME: ${{ secrets.MysqlUsername }}
+      MYSQL_PASSWORD: ${{ secrets.MysqlPassword }}
+    
     
     steps:
     - uses: actions/checkout@v2
@@ -35,5 +40,13 @@ jobs:
       with:
         java-version: '16'
         distribution: 'adopt'
+    - name: Shutdown Ubuntu MySQL (SUDO)
+      run: sudo service mysql stop
+    - name: Setup MySQL
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        mysql root password: ${{ env.MYSQL_PASSWORD }}
+        mysql database: db_test
+      
     - name: Test the project
       run: mvn test
