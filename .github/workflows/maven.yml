@@ -40,8 +40,13 @@ jobs:
       with:
         java-version: '16'
         distribution: 'adopt'
+        
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1.6
+      
     - name: Shutdown Ubuntu MySQL (SUDO)
       run: sudo service mysql stop
+      
     - name: Setup MySQL
       uses: mirromutth/mysql-action@v1.1
       with:
