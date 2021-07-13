@@ -28,9 +28,9 @@ jobs:
     
     runs-on: ubuntu-latest
     env:
-      MYSQL_URL: ${{ secrets.MysqlUrl }}
-      MYSQL_USERNAME: ${{ secrets.MysqlUsername }}
-      MYSQL_PASSWORD: ${{ secrets.MysqlPassword }}
+      MYSQL_URL: ${{ secrets.MYSQL_URL }}
+      MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
     
     
     steps:
