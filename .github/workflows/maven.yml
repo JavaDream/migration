@@ -41,19 +41,19 @@ jobs:
         java-version: '16'
         distribution: 'adopt'
     
-    - name: Cache SonarCloud packages
-      uses: actions/cache@v1
-      with:
-        path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
+#     - name: Cache SonarCloud packages
+#       uses: actions/cache@v1
+#       with:
+#         path: ~/.sonar/cache
+#         key: ${{ runner.os }}-sonar
+#         restore-keys: ${{ runner.os }}-sonar
         
-    - name: Cache Maven packages
-      uses: actions/cache@v1
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+#     - name: Cache Maven packages
+#       uses: actions/cache@v1
+#       with:
+#         path: ~/.m2
+#         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+#         restore-keys: ${{ runner.os }}-m2
       
     - name: Shutdown Ubuntu MySQL (SUDO)
       run: sudo service mysql stop
