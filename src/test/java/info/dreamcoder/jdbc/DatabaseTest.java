@@ -1,12 +1,15 @@
 package info.dreamcoder.jdbc;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("数据库操作相关测试")
 class DatabaseTest {
@@ -25,9 +28,29 @@ class DatabaseTest {
         }
     }
 
+    @AfterAll
+    public static void closeDatabase() {
+        try {
+            database.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     @DisplayName("能正确执行sql")
-    void shouldExecuteSql() {
+    void shouldExecuteSql() throws SQLException {
+        assertTrue(database.execute("show tables"));
+        assertTrue(database.execute("drop table if exists test_table"));
+        assertTrue(database.execute("create table test_table(id integer)"));
+
+        ResultSet rs = database.query("show tables like '%test_table%'");
+        assertTrue(rs.next());
+        assertEquals(rs.getString(1), "test_table");
+        rs.getStatement().close();
+        rs.close();
+
+        assertTrue(database.execute("drop table test_table"));
     }
 
     @Test
