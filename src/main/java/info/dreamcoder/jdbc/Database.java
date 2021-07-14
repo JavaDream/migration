@@ -41,15 +41,8 @@ public class Database {
         return false;
     }
 
-    public ResultSet query(String sql) {
-        Statement statement = null;
-        try {
-            statement = dbConnection.createStatement();
-            return statement.executeQuery(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public ResultSet query(String sql) throws SQLException {
+        Statement statement = dbConnection.createStatement();
+        return statement.executeQuery(sql);
     }
-
 }
