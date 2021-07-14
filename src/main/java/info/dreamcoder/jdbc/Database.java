@@ -30,12 +30,12 @@ public class Database {
             statement.execute(sql);
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+//            TODO: 异常处理
         } finally {
             try {
                 Objects.requireNonNull(statement).close();
             } catch (SQLException e) {
-                e.printStackTrace();
+//            TODO: 异常处理
             }
         }
         return false;
