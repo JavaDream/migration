@@ -35,6 +35,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+      fetch-depth: 0
     - name: Set up JDK 16
       uses: actions/setup-java@v2
       with:
@@ -63,6 +64,10 @@ jobs:
       with:
         mysql root password: ${{ env.MYSQL_PASSWORD }}
         mysql database: db_test
+        
+    - name: JaCoCo Report
+      uses: Madrapps/jacoco-report@v1.1
+      path: coverage.xml
       
     - name: Build and analyze
       env:
