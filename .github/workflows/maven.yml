@@ -67,7 +67,8 @@ jobs:
         
     - name: JaCoCo Report
       uses: Madrapps/jacoco-report@v1.1
-      path: coverage.xml
+      with:
+        path: coverage.xml
       
     - name: Build and analyze
       env:
