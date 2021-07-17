@@ -1,12 +1,16 @@
 package info.dreamcoder.jdbc;
 
+
 import info.dreamcoder.finterface.IDBExecute;
 import info.dreamcoder.finterface.IDBQuery;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.Objects;
 
 public class Database {
+    private static final Logger logger = LogManager.getLogger(Database.class);
     Connection dbConnection;
 
     public Database(String url, String username, String password) throws SQLException {
@@ -17,7 +21,7 @@ public class Database {
         try {
             return this.dbConnection.isValid(1000);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
         return false;
     }
@@ -27,7 +31,7 @@ public class Database {
     }
 
     public void execute(String sql) {
-        this.execute(sql, (result) -> {});
+        this.execute(sql, result -> {});
     }
 
     public void execute(String sql, IDBExecute action) {
@@ -42,6 +46,7 @@ public class Database {
             try {
                 Objects.requireNonNull(statement).close();
             } catch (SQLException e) {
+                logger.error(e.toString());
             }
         }
     }
@@ -59,13 +64,13 @@ public class Database {
             try {
                 Objects.requireNonNull(resultSet).close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error(e.toString());
             }
 
             try {
                 Objects.requireNonNull(statement).close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error(e.toString());
             }
         }
 
