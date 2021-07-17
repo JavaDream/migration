@@ -64,11 +64,8 @@ jobs:
         mysql root password: ${{ env.MYSQL_PASSWORD }}
         mysql database: db_test
         
-    - name: JaCoCo Report
-      uses: Madrapps/jacoco-report@v1.1
-      with:
-        path: coverage.xml
-        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: jacoco-badge-generator
+      uses: cicirello/jacoco-badge-generator@v2.3.0
       
     - name: Build and analyze
       env:
