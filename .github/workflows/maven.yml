@@ -63,9 +63,6 @@ jobs:
       with:
         mysql root password: ${{ env.MYSQL_PASSWORD }}
         mysql database: db_test
-        
-    - name: jacoco-badge-generator
-      uses: cicirello/jacoco-badge-generator@v2.3.0
       
     - name: Build and analyze
       env:
