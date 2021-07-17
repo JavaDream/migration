@@ -1,12 +1,9 @@
 package info.dreamcoder.jdbc;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,6 +20,7 @@ class DatabaseTest {
                     System.getenv("MYSQL_USERNAME"),
                     System.getenv("MYSQL_PASSWORD")
             );
+            database.execute("drop table if exists test_table;");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -37,20 +35,46 @@ class DatabaseTest {
         }
     }
 
+    @BeforeEach
+    public void cleanDatabase() {
+        database.execute("drop table if exists test_table;");
+    }
+
     @Test
-    @DisplayName("能正确执行sql")
-    void shouldExecuteSql() throws SQLException {
-        assertTrue(database.execute("show tables"));
-        assertTrue(database.execute("drop table if exists test_table"));
-        assertTrue(database.execute("create table test_table(id integer)"));
+    @DisplayName("可以正常的执行show table语句")
+    void shouldExecuteShowTableSql() {
+        assertDoesNotThrow(() -> {
+            database.execute("show tables");
+        });
+        database.execute("show tables", (result) -> {
+            assertTrue(result);
+        });
+    }
 
-        ResultSet rs = database.query("show tables like '%test_table%'");
-        assertTrue(rs.next());
-        assertEquals(rs.getString(1), "test_table");
-        rs.getStatement().close();
-        rs.close();
+    @Test
+    @DisplayName("能正确创建表格")
+    void shouldCreateTable() {
+        database.execute("create table test_table(id integer)", (result) -> {
+            assertTrue(result);
+        });
+        database.query("show tables like '%test_table%'", (rs) -> {
+            assertDoesNotThrow(() -> {
+                rs.next();
+            });
+            assertDoesNotThrow(() -> {
+                String tableName = rs.getString(1);
+                assertEquals("test_table", tableName);
+            });
+        });
+    }
 
-        assertTrue(database.execute("drop table test_table"));
+    @Test
+    @DisplayName("可以正常的删除表格")
+    void shouldDropTable() {
+        database.execute("create table test_table(id integer)");
+        database.execute("drop table test_table", (result) -> {
+            assertTrue(result);
+        });
     }
 
     @Test

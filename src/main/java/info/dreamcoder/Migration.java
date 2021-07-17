@@ -1,14 +1,16 @@
 package info.dreamcoder;
 
+import info.dreamcoder.finterface.ITableAction;
+
 /**
  * Hello world!
  *
  */
 public class Migration  {
 
-    public static Table createTable(String name, ITableRun run) {
+    public static Table createTable(String name, ITableAction run) {
         Table table = new Table(name);
-        run.action(table);
+        run.run(table);
         return table;
     }
 

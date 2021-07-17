@@ -1,5 +1,8 @@
 package info.dreamcoder.jdbc;
 
+import info.dreamcoder.finterface.IDBExecute;
+import info.dreamcoder.finterface.IDBQuery;
+
 import java.sql.*;
 import java.util.Objects;
 
@@ -23,26 +26,48 @@ public class Database {
         this.dbConnection.close();
     }
 
-    public boolean execute(String sql) {
+    public void execute(String sql) {
+        this.execute(sql, (result) -> {});
+    }
+
+    public void execute(String sql, IDBExecute action) {
         Statement statement = null;
         try {
             statement = dbConnection.createStatement();
             statement.execute(sql);
-            return true;
+            action.run(true);
         } catch (SQLException e) {
-//            TODO: 异常处理
+            action.run(false);
         } finally {
             try {
                 Objects.requireNonNull(statement).close();
             } catch (SQLException e) {
-//            TODO: 异常处理
             }
         }
-        return false;
     }
 
-    public ResultSet query(String sql) throws SQLException {
-        Statement statement = dbConnection.createStatement();
-        return statement.executeQuery(sql);
+    public void query(String sql, IDBQuery query) {
+        ResultSet resultSet = null;
+        Statement statement = null;
+        try {
+            statement = dbConnection.createStatement();
+            resultSet = statement.executeQuery(sql);
+            query.run(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                Objects.requireNonNull(resultSet).close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                Objects.requireNonNull(statement).close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
