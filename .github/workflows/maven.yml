@@ -68,6 +68,7 @@ jobs:
       uses: Madrapps/jacoco-report@v1.1
       with:
         path: coverage.xml
+        token: ${{ secrets.GITHUB_TOKEN }}
       
     - name: Build and analyze
       env:
