@@ -46,7 +46,7 @@ public class Database {
             try {
                 Objects.requireNonNull(statement).close();
             } catch (SQLException e) {
-                logger.error(e.toString());
+                logger.error(e);
             }
         }
     }
@@ -59,18 +59,18 @@ public class Database {
             resultSet = statement.executeQuery(sql);
             query.run(resultSet);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
         } finally {
             try {
                 Objects.requireNonNull(resultSet).close();
             } catch (SQLException e) {
-                logger.error(e.toString());
+                logger.error(e);
             }
 
             try {
                 Objects.requireNonNull(statement).close();
             } catch (SQLException e) {
-                logger.error(e.toString());
+                logger.error(e);
             }
         }
 
