@@ -3,7 +3,6 @@ package info.dreamcoder.jdbc;
 import org.junit.jupiter.api.*;
 
 import java.sql.SQLException;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
