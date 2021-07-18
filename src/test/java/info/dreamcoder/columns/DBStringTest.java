@@ -12,6 +12,6 @@ class DBStringTest {
     @DisplayName("能正确的创建字符串的类型，默认是255")
     void shouldCreateStringColumn() {
         DBString col = new DBString("string_column");
-        assertEquals(col.toSql(), "string_column varchar(255)");
+        assertEquals("string_column varchar(255)", col.toSql());
     }
 }

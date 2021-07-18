@@ -12,6 +12,6 @@ class DBIntegerTest {
     @DisplayName("能正确的创建整形的列")
     void shouldAddIntegerColumn() {
         DBInteger col = new DBInteger("int_column");
-        assertEquals(col.toSql(),  "int_column int");
+        assertEquals("int_column int", col.toSql());
     }
 }

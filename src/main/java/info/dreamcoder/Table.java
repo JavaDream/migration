@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Table {
     private String name;
-    private List<DBColumn> columns = new ArrayList<DBColumn>();
+    private List<DBColumn> columns = new ArrayList<>();
 
     public Table(String name) {
         this.name = name;
@@ -35,12 +35,13 @@ public class Table {
     }
 
     public String toSql() {
-        String sql = "CREATE TABLE " + this.name + "\n";
-        sql += "(\n";
+        StringBuilder sql = new StringBuilder();
+        sql.append("CREATE TABLE ").append(this.name).append("\n");
+        sql.append("(\n");
         for (DBColumn column : columns) {
-            sql += column.toSql();
+            sql.append(column.toSql());
         }
-        sql += "\n)";
-        return sql;
+        sql.append("\n)");
+        return sql.toString();
     }
 }

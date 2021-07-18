@@ -9,7 +9,7 @@ public abstract class DBColumn {
     }
 
 
-    public DBColumn(String name) {
+    protected DBColumn(String name) {
         this.name = name;
     }
 

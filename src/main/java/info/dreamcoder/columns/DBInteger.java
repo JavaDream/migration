@@ -7,7 +7,6 @@ public class DBInteger extends DBColumn {
 
     @Override
     public String toSql() {
-        String sql = this.getName() + " int";
-        return sql;
+        return this.getName() + " int";
     }
 }

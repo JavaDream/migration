@@ -12,6 +12,6 @@ class DBTimestampTest {
     @DisplayName("能正确的创建timestamp类型的列")
     void shouldCreateTimestampColumn() {
         DBTimestamp col = new DBTimestamp("timestamp_column");
-        assertEquals(col.toSql(), "timestamp_column timestamp");
+        assertEquals("timestamp_column timestamp", col.toSql());
     }
 }

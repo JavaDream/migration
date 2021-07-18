@@ -14,5 +14,7 @@ public class Migration  {
         return table;
     }
 
-//    TODO: 添加数据库连接以及真实的创建表的方法
+    private Migration() {
+        throw new IllegalStateException("Utility class");
+    }
 }

@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @DisplayName("表测试")
-public class TestTable {
+class TestTable {
 
     @Test
     @DisplayName("能正常创建表")
-    public void shouldCreateTable() {
+    void shouldCreateTable() {
         Table table = createTable("test_table", (t) -> {
             t.string("test_string_column");
         });

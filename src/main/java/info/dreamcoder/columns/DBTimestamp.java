@@ -7,7 +7,6 @@ public class DBTimestamp extends DBColumn{
 
     @Override
     public String toSql() {
-        String sql = this.getName() + " timestamp";
-        return sql;
+        return this.getName() + " timestamp";
     }
 }
