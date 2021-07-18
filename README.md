@@ -24,6 +24,7 @@ java 项目的数据migration工具
 createTable("test_table", (t) -> {
     t.string("test_string_column");
     t.integer("test_int_column");
+    t.timestamps();
 });
 
 ```
