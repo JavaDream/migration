@@ -51,6 +51,15 @@ class DatabaseTest {
     }
 
     @Test
+    @DisplayName("sql错误的时候,得到false的结果")
+    void shouldGetFalseWheSqlHasError() {
+        database.execute("show tables 123", (result) -> {
+            assertFalse(result);
+        });
+    }
+
+
+    @Test
     @DisplayName("能正确创建表格")
     void shouldCreateTable() {
         database.execute("create table test_table(id integer)", (result) -> {

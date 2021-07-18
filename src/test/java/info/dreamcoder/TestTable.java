@@ -16,11 +16,16 @@ class TestTable {
     void shouldCreateTable() {
         Table table = createTable("test_table", (t) -> {
             t.string("test_string_column");
+            t.integer("test_integer_column");
+            t.timestamps();
         });
         assertEquals(
                 table.toSql(), "CREATE TABLE test_table\n" +
                         "(\n" +
                         "test_string_column varchar(255)\n" +
+                        "test_integer_column int\n" +
+                        "created_at timestamp\n" +
+                        "updated_at timestamp\n" +
                         ")"
         );
     }

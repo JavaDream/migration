@@ -39,9 +39,9 @@ public class Table {
         sql.append("CREATE TABLE ").append(this.name).append("\n");
         sql.append("(\n");
         for (DBColumn column : columns) {
-            sql.append(column.toSql());
+            sql.append(column.toSql()).append("\n");
         }
-        sql.append("\n)");
+        sql.append(")");
         return sql.toString();
     }
 }
