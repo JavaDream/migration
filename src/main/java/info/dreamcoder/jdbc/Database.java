@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class Database {
     private static final Logger logger = LogManager.getLogger(Database.class);
-    Connection dbConnection;
+    private Connection dbConnection;
 
     public Database(String url, String username, String password) throws SQLException {
         this.dbConnection = DriverManager.getConnection(url, username, password);
@@ -44,7 +44,9 @@ public class Database {
             action.run(false);
         } finally {
             try {
-                Objects.requireNonNull(statement).close();
+                if(statement != null) {
+                    statement.close();
+                }
             } catch (SQLException e) {
                 logger.error(e);
             }
@@ -62,17 +64,20 @@ public class Database {
             logger.error(e);
         } finally {
             try {
-                Objects.requireNonNull(resultSet).close();
+                if(resultSet != null) {
+                    resultSet.close();
+                }
             } catch (SQLException e) {
                 logger.error(e);
             }
 
             try {
-                Objects.requireNonNull(statement).close();
+                if(statement != null) {
+                    statement.close();
+                }
             } catch (SQLException e) {
                 logger.error(e);
             }
         }
-
     }
 }

@@ -1,18 +1,23 @@
 package info.dreamcoder.jdbc;
 
+import nl.altindag.log.LogCaptor;
 import org.junit.jupiter.api.*;
+import org.mockito.internal.util.reflection.FieldSetter;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @DisplayName("数据库操作相关测试")
 class DatabaseTest {
-    static Database database;
+    private Database database;
 
-    @BeforeAll
-    public static void createDatabase() {
+    @BeforeEach
+    public void createDatabase() {
         try {
             database = new Database(
                     System.getenv("MYSQL_URL"),
@@ -25,8 +30,8 @@ class DatabaseTest {
         }
     }
 
-    @AfterAll
-    public static void closeDatabase() {
+    @AfterEach
+    public void closeDatabase() {
         try {
             database.close();
         } catch (SQLException e) {
@@ -87,7 +92,31 @@ class DatabaseTest {
 
     @Test
     @DisplayName("能获取数据库连接状态")
-    void isValid() {
+    void shouldGetTrueWhenConnectionIsSuccess() {
         assertTrue(database.isValid());
+    }
+
+    @Test
+    @DisplayName("数据库连接有问题的时候返回false")
+    void shouldGetFalseWhenConnectionIsError() throws NoSuchFieldException, SQLException {
+
+        Connection connection = mock(Connection.class);
+        FieldSetter.setField(database, database.getClass().getDeclaredField("dbConnection"), connection);
+        when(connection.isValid(1000)).thenThrow(SQLException.class);
+        assertFalse(database.isValid());
+    }
+
+    @Test
+    @DisplayName("当statement创建失败的时候，能在终端输出错误")
+    void shouldLoggerErrorWhenStatementCreateError() throws NoSuchFieldException, SQLException {
+        LogCaptor logCaptor = LogCaptor.forClass(Database.class);
+
+        Connection connection = mock(Connection.class);
+        FieldSetter.setField(database, database.getClass().getDeclaredField("dbConnection"), connection);
+        when(connection.createStatement()).thenThrow(SQLException.class);
+
+        database.query("show tables", resultSet -> {});
+
+        assertFalse(logCaptor.getErrorLogs().isEmpty());
     }
 }
