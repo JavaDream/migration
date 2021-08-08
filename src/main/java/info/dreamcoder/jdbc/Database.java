@@ -1,8 +1,7 @@
 package info.dreamcoder.jdbc;
 
 
-import info.dreamcoder.finterface.IDBExecute;
-import info.dreamcoder.finterface.IDBQuery;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,9 +10,11 @@ import java.sql.*;
 public class Database {
     private static final Logger logger = LogManager.getLogger(Database.class);
     private Connection dbConnection;
+    private Statement statement;
 
     public Database(String url, String username, String password) throws SQLException {
         this.dbConnection = DriverManager.getConnection(url, username, password);
+        this.statement = dbConnection.createStatement();
     }
 
     public boolean isValid() {
@@ -25,58 +26,27 @@ public class Database {
         return false;
     }
 
-    public void close() throws SQLException {
-        this.dbConnection.close();
-    }
-
-    public void execute(String sql) {
-        this.execute(sql, result -> {});
-    }
-
-    public void execute(String sql, IDBExecute action) {
-        Statement statement = null;
-        try {
-            statement = dbConnection.createStatement();
-            statement.execute(sql);
-            action.run(true);
-        } catch (SQLException e) {
-            action.run(false);
-        } finally {
+    public void close() {
+        if(dbConnection != null) {
             try {
-                if(statement != null) {
-                    statement.close();
-                }
+                this.dbConnection.close();
             } catch (SQLException e) {
-                logger.error(e);
+                logger.error(e.toString());
             }
         }
     }
 
-    public void query(String sql, IDBQuery query) {
-        ResultSet resultSet = null;
-        Statement statement = null;
+    public boolean execute(String sql) {
         try {
-            statement = dbConnection.createStatement();
-            resultSet = statement.executeQuery(sql);
-            query.run(resultSet);
+            this.statement.execute(sql);
         } catch (SQLException e) {
-            logger.error(e);
-        } finally {
-            try {
-                if(resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                logger.error(e);
-            }
-
-            try {
-                if(statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                logger.error(e);
-            }
+            logger.error(e.toString());
+            return false;
         }
+        return true;
+    }
+
+    public ResultSet query(String sql) throws SQLException {
+        return statement.executeQuery(sql);
     }
 }

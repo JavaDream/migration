@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import org.mockito.internal.util.reflection.FieldSetter;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,15 +33,11 @@ class DatabaseTest {
 
     @AfterEach
     public void closeDatabase() {
-        try {
-            database.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        database.close();
     }
 
     @BeforeEach
-    public void cleanDatabase() {
+    public void cleanDatabase() throws SQLException {
         database.execute("drop table if exists test_table;");
     }
 
@@ -50,34 +47,25 @@ class DatabaseTest {
         assertDoesNotThrow(() -> {
             database.execute("show tables");
         });
-        database.execute("show tables", (result) -> {
-            assertTrue(result);
-        });
+        assertTrue(database.execute("show tables"));
     }
 
     @Test
     @DisplayName("sql错误的时候,得到false的结果")
     void shouldGetFalseWheSqlHasError() {
-        database.execute("show tables 123", (result) -> {
-            assertFalse(result);
-        });
+        assertFalse(database.execute("show tables 123"));
     }
 
 
     @Test
     @DisplayName("能正确创建表格")
-    void shouldCreateTable() {
-        database.execute("create table test_table(id integer)", (result) -> {
-            assertTrue(result);
-        });
-        database.query("show tables like '%test_table%'", (rs) -> {
-            assertDoesNotThrow(() -> {
-                rs.next();
-            });
-            assertDoesNotThrow(() -> {
-                String tableName = rs.getString(1);
-                assertEquals("test_table", tableName);
-            });
+    void shouldCreateTable() throws SQLException {
+        assertTrue(database.execute("create table test_table(id integer)"));
+        ResultSet rs = database.query("show tables like '%test_table%'");
+        assertDoesNotThrow(rs::next);
+        assertDoesNotThrow(() -> {
+            String tableName = rs.getString(1);
+            assertEquals("test_table", tableName);
         });
     }
 
@@ -85,9 +73,7 @@ class DatabaseTest {
     @DisplayName("可以正常的删除表格")
     void shouldDropTable() {
         database.execute("create table test_table(id integer)");
-        database.execute("drop table test_table", (result) -> {
-            assertTrue(result);
-        });
+        assertTrue(database.execute("drop table test_table"));
     }
 
     @Test
@@ -104,19 +90,5 @@ class DatabaseTest {
         FieldSetter.setField(database, database.getClass().getDeclaredField("dbConnection"), connection);
         when(connection.isValid(1000)).thenThrow(SQLException.class);
         assertFalse(database.isValid());
-    }
-
-    @Test
-    @DisplayName("当statement创建失败的时候，能在终端输出错误")
-    void shouldLoggerErrorWhenStatementCreateError() throws NoSuchFieldException, SQLException {
-        LogCaptor logCaptor = LogCaptor.forClass(Database.class);
-
-        Connection connection = mock(Connection.class);
-        FieldSetter.setField(database, database.getClass().getDeclaredField("dbConnection"), connection);
-        when(connection.createStatement()).thenThrow(SQLException.class);
-
-        database.query("show tables", resultSet -> {});
-
-        assertFalse(logCaptor.getErrorLogs().isEmpty());
     }
 }

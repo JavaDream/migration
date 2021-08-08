@@ -7,7 +7,7 @@ public class DBString extends DBColumn {
     }
 
     @Override
-    public String toSql() {
+    public String sql() {
         return this.getName() + " varchar(255)";
     }
 }

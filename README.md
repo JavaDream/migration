@@ -19,12 +19,53 @@ java 项目的数据migration工具
 
 ## 使用
 
-```java
+1. 基本的创建表
 
+```java
 createTable("test_table", (t) -> {
     t.string("test_string_column");
     t.integer("test_int_column");
     t.timestamps();
 });
 
+```
+
+2. 可以不需要主键id
+
+```java
+TableOptions options = new TableOptions();
+options.disableId();
+
+Table table = createTable("test_table", options, (t) -> {
+    t.string("test_string_column");
+    t.integer("test_integer_column");
+    t.timestamps();
+});
+```
+
+3. 可以设置主键的名字
+
+```java
+TableOptions options = new TableOptions();
+options.setPrimaryKey("test_primary_key");
+
+Table table = createTable("test_table", options, (t) -> {
+    t.string("test_string_column");
+    t.integer("test_integer_column");
+    t.timestamps();
+});
+```
+
+4. 可以使用string类型的主键
+
+```java
+TableOptions options = new TableOptions();
+options.setPrimaryKey("test_primary_key");
+options.setIdType("string");
+
+Table table = createTable("test_table", options, (t) -> {
+    t.string("test_string_column");
+    t.integer("test_integer_column");
+    t.timestamps();
+});
 ```
