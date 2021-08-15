@@ -3,7 +3,7 @@ package info.dreamcoder.columns;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 @DisplayName("测试整数类型的列")
 class DBIntegerTest {
@@ -12,6 +12,6 @@ class DBIntegerTest {
     @DisplayName("能正确的创建整形的列")
     void shouldAddIntegerColumn() {
         DBInteger col = new DBInteger("int_column");
-        assertEquals("int_column int", col.toSql());
+        assertThat(col.sql()).isEqualTo("int_column int");
     }
 }

@@ -1,11 +1,10 @@
 package info.dreamcoder;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static info.dreamcoder.Migration.createTable;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 
 @DisplayName("表测试")
@@ -19,8 +18,7 @@ class TestTable {
             t.integer("test_integer_column");
             t.timestamps();
         });
-        assertEquals(
-                table.toSql(), "CREATE TABLE test_table\n" +
+        assertThat(table.toSql()).isEqualTo("CREATE TABLE test_table\n" +
                         "(\n" +
                         "id bigint auto_increment PRIMARY KEY\n" +
                         "test_string_column varchar(255)\n" +
@@ -43,8 +41,7 @@ class TestTable {
             t.timestamps();
         });
 
-        assertEquals(
-                table.toSql(), "CREATE TABLE test_table\n" +
+        assertThat(table.toSql()).isEqualTo("CREATE TABLE test_table\n" +
                         "(\n" +
                         "test_string_column varchar(255)\n" +
                         "test_integer_column int\n" +
@@ -66,8 +63,7 @@ class TestTable {
             t.timestamps();
         });
 
-        assertEquals(
-                table.toSql(), "CREATE TABLE test_table\n" +
+        assertThat(table.toSql()).isEqualTo("CREATE TABLE test_table\n" +
                         "(\n" +
                         "test_primary_key bigint auto_increment PRIMARY KEY\n" +
                         "test_string_column varchar(255)\n" +
@@ -91,8 +87,7 @@ class TestTable {
             t.timestamps();
         });
 
-        assertEquals(
-                table.toSql(), "CREATE TABLE test_table\n" +
+        assertThat(table.toSql()).isEqualTo("CREATE TABLE test_table\n" +
                         "(\n" +
                         "test_primary_key varchar(255) PRIMARY KEY\n" +
                         "test_string_column varchar(255)\n" +

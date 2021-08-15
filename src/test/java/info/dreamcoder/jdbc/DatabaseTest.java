@@ -1,15 +1,17 @@
 package info.dreamcoder.jdbc;
 
-import nl.altindag.log.LogCaptor;
+import org.assertj.db.type.Request;
+import org.assertj.db.type.Source;
 import org.junit.jupiter.api.*;
+
 import org.mockito.internal.util.reflection.FieldSetter;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.*;
+import static org.assertj.db.api.Assertions.*;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -44,51 +46,52 @@ class DatabaseTest {
     @Test
     @DisplayName("可以正常的执行show table语句")
     void shouldExecuteShowTableSql() {
-        assertDoesNotThrow(() -> {
-            database.execute("show tables");
-        });
-        assertTrue(database.execute("show tables"));
+        assertThatNoException().isThrownBy(() -> database.execute("show tables"));
+        assertThat(database.execute("show tables")).isTrue();
     }
 
     @Test
     @DisplayName("sql错误的时候,得到false的结果")
     void shouldGetFalseWheSqlHasError() {
-        assertFalse(database.execute("show tables 123"));
+        assertThat(database.execute("show tables 123")).isFalse();
     }
 
 
     @Test
     @DisplayName("能正确创建表格")
     void shouldCreateTable() throws SQLException {
-        assertTrue(database.execute("create table test_table(id integer)"));
-        ResultSet rs = database.query("show tables like '%test_table%'");
-        assertDoesNotThrow(rs::next);
-        assertDoesNotThrow(() -> {
-            String tableName = rs.getString(1);
-            assertEquals("test_table", tableName);
-        });
+        assertThat(database.execute("create table test_table(id integer)")).isTrue();
+
+        Source source = new Source(
+                System.getenv("MYSQL_URL"),
+                System.getenv("MYSQL_USERNAME"),
+                System.getenv("MYSQL_PASSWORD")
+        );
+
+        Request request = new Request(source, "show tables like '%test_table%'");
+
+        assertThat(request).row(0)
+                .value().isEqualTo("test_table");
     }
 
     @Test
     @DisplayName("可以正常的删除表格")
     void shouldDropTable() {
-        database.execute("create table test_table(id integer)");
-        assertTrue(database.execute("drop table test_table"));
+        assertThat(database.execute("create table test_table(id integer)")).isTrue();
     }
 
     @Test
     @DisplayName("能获取数据库连接状态")
     void shouldGetTrueWhenConnectionIsSuccess() {
-        assertTrue(database.isValid());
+        assertThat(database.isValid()).isTrue();
     }
 
     @Test
     @DisplayName("数据库连接有问题的时候返回false")
     void shouldGetFalseWhenConnectionIsError() throws NoSuchFieldException, SQLException {
-
         Connection connection = mock(Connection.class);
         FieldSetter.setField(database, database.getClass().getDeclaredField("dbConnection"), connection);
         when(connection.isValid(1000)).thenThrow(SQLException.class);
-        assertFalse(database.isValid());
+        assertThat(database.isValid()).isFalse();
     }
 }

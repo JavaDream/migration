@@ -7,8 +7,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.assertj.core.api.Assertions.*;
 
 @DisplayName("测试migration类")
 class MigrationTest {
@@ -17,13 +16,13 @@ class MigrationTest {
     @DisplayName("构造函数是私有的")
     void shouldHaveAPrivateConstructorMethod() throws NoSuchMethodException {
         Constructor<Migration> constructor = Migration.class.getDeclaredConstructor();
-        assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+        assertThat(Modifier.isPrivate(constructor.getModifiers())).isTrue();
     }
 
     @Test
     @DisplayName("存在构造函数")
     void shouldHaveConstructorMethod() {
-        assertDoesNotThrow(() -> {
+        assertThatNoException().isThrownBy(() -> {
             Constructor<Migration> constructor = Migration.class.getDeclaredConstructor();
         });
     }
@@ -34,7 +33,7 @@ class MigrationTest {
         Constructor<Migration> constructor = Migration.class.getDeclaredConstructor();
         constructor.setAccessible(true);
 
-        assertThrows(InvocationTargetException.class, constructor::newInstance);
+        assertThatExceptionOfType(InvocationTargetException.class).isThrownBy(constructor::newInstance);
 
         constructor.setAccessible(false);
     }
@@ -48,7 +47,7 @@ class MigrationTest {
         try {
             constructor.newInstance();
         } catch (InvocationTargetException e) {
-            assertTrue(e.getTargetException() instanceof IllegalStateException);
+            assertThat(e).getCause().isInstanceOf(IllegalStateException.class);
         }
 
         constructor.setAccessible(false);
@@ -58,6 +57,7 @@ class MigrationTest {
     @DisplayName("静态方法应该得到一个Table对象")
     void shouldGetATableObject() {
         Table table = Migration.createTable("test_table", t -> {});
-        assertEquals("info.dreamcoder.Table", table.getClass().getName());
+
+        assertThat(table.getClass().getName()).isEqualTo("info.dreamcoder.Table");
     }
 }
