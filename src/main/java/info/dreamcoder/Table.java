@@ -81,10 +81,13 @@ public class Table {
             sql.append("CREATE TABLE ").append(this.name).append("\n");
             sql.append("(\n");
 
-            for (DBColumn column : columns) {
-                sql.append(column.toSql()).append("\n");
+            for (int i = 0; i < columns.size(); i++) {
+                sql.append(columns.get(i).toSql());
+                if(i < columns.size() - 1) {
+                    sql.append(",\n");
+                }
             }
-            sql.append(")");
+            sql.append("\n)");
 
             // 添加数据库的options 例如 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 这样的参数
             if(!options.getOptions().isEmpty()) {

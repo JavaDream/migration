@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -55,7 +56,7 @@ class MigrationTest {
 
     @Test
     @DisplayName("静态方法应该得到一个Table对象")
-    void shouldGetATableObject() {
+    void shouldGetATableObject() throws SQLException {
         Table table = Migration.createTable("test_table", t -> {});
 
         assertThat(table.getClass().getName()).isEqualTo("info.dreamcoder.Table");
