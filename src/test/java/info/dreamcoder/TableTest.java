@@ -1,5 +1,7 @@
 package info.dreamcoder;
 
+import info.dreamcoder.config.Config;
+import info.dreamcoder.config.Factory;
 import info.dreamcoder.jdbc.Database;
 import org.assertj.db.type.Request;
 import org.assertj.db.type.Source;
@@ -20,21 +22,18 @@ class TableTest {
 
     @BeforeAll
     static void createDbSource() {
+        Config config = Factory.getConfig();
         source = new Source(
-                System.getenv("MYSQL_URL"),
-                System.getenv("MYSQL_USERNAME"),
-                System.getenv("MYSQL_PASSWORD")
+                config.getDbUrl(),
+                config.getDbUserName(),
+                config.getPassword()
         );
     }
 
     @BeforeEach
     public void createDatabase() {
         try {
-            database = new Database(
-                    System.getenv("MYSQL_URL"),
-                    System.getenv("MYSQL_USERNAME"),
-                    System.getenv("MYSQL_PASSWORD")
-            );
+            database = new Database();
             database.execute("drop table if exists test_table;");
         } catch (SQLException e) {
             e.printStackTrace();

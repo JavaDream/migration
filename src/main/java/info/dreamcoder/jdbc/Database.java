@@ -2,6 +2,8 @@ package info.dreamcoder.jdbc;
 
 
 
+import info.dreamcoder.config.Config;
+import info.dreamcoder.config.Factory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,8 +14,15 @@ public class Database {
     private Connection dbConnection;
     private Statement statement;
 
-    public Database(String url, String username, String password) throws SQLException {
-        this.dbConnection = DriverManager.getConnection(url, username, password);
+    public Database() throws SQLException {
+        Config config = Factory.getConfig();
+
+        this.dbConnection = DriverManager.getConnection(
+                config.getDbUrl(),
+                config.getDbUserName(),
+                config.getPassword()
+        );
+
         this.statement = dbConnection.createStatement();
     }
 

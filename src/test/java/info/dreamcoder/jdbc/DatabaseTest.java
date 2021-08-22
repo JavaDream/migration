@@ -4,8 +4,8 @@ import org.assertj.db.type.Request;
 import org.assertj.db.type.Source;
 import org.junit.jupiter.api.*;
 
-import org.mockito.internal.util.reflection.FieldSetter;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -22,11 +22,7 @@ class DatabaseTest {
     @BeforeEach
     public void createDatabase() {
         try {
-            database = new Database(
-                    System.getenv("MYSQL_URL"),
-                    System.getenv("MYSQL_USERNAME"),
-                    System.getenv("MYSQL_PASSWORD")
-            );
+            database = new Database();
             database.execute("drop table if exists test_table;");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -88,9 +84,13 @@ class DatabaseTest {
 
     @Test
     @DisplayName("数据库连接有问题的时候返回false")
-    void shouldGetFalseWhenConnectionIsError() throws NoSuchFieldException, SQLException {
+    void shouldGetFalseWhenConnectionIsError() throws NoSuchFieldException, SQLException, IllegalAccessException {
         Connection connection = mock(Connection.class);
-        FieldSetter.setField(database, database.getClass().getDeclaredField("dbConnection"), connection);
+        Field dbConnection = database.getClass().getDeclaredField("dbConnection");
+        dbConnection.setAccessible(true);
+        dbConnection.set(database, connection);
+        dbConnection.setAccessible(false);
+
         when(connection.isValid(1000)).thenThrow(SQLException.class);
         assertThat(database.isValid()).isFalse();
     }

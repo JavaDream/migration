@@ -27,11 +27,7 @@ public class Migration  {
     }
 
     private static void makeChangeToDatabase(Table table) throws SQLException {
-        Database database = new Database(
-                System.getenv("MYSQL_URL"),
-                System.getenv("MYSQL_USERNAME"),
-                System.getenv("MYSQL_PASSWORD")
-        );
+        Database database = new Database();
         database.execute(table.toSql());
     }
 
