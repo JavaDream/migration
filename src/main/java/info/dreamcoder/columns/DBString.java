@@ -1,6 +1,7 @@
 package info.dreamcoder.columns;
 
 public class DBString extends DBColumn {
+    private int length = 255;
 
     public DBString(String name) {
         super(name);
@@ -8,6 +9,11 @@ public class DBString extends DBColumn {
 
     @Override
     public String sql() {
-        return this.getName() + " varchar(255)";
+        return this.getName() + " varchar(" + length + ")";
+    }
+
+    public DBString limit(int length) {
+        this.length = length;
+        return this;
     }
 }

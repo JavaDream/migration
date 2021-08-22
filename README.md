@@ -27,7 +27,7 @@ java 项目的数据migration工具
 
 ```java
 createTable("test_table", (t) -> {
-    t.string("test_string_column");
+    t.string("test_string_column").limit(150);
     t.integer("test_int_column");
     t.timestamps();
 });

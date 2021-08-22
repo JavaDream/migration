@@ -3,6 +3,7 @@ package info.dreamcoder.columns;
 public abstract class DBColumn {
 
     private String name;
+    private boolean isPrimary = false;
     private String options = "";
 
     public String getName() {
@@ -14,8 +15,17 @@ public abstract class DBColumn {
         this.name = name;
     }
 
+    public void primary() {
+        this.isPrimary = true;
+    }
+
     public String toSql() {
         StringBuilder sqlBuilder = new StringBuilder(this.sql());
+
+        if (isPrimary) {
+            sqlBuilder.append(" PRIMARY KEY");
+        }
+
         sqlBuilder.append(" ").append(this.options);
         return sqlBuilder.toString().strip();
     }

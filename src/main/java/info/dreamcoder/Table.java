@@ -24,26 +24,20 @@ public class Table {
         if(options.isNeedId()) {
             switch (options.getIdType()) {
                 case "bigint":
-                    this.bigint(options.getPrimaryKey(), "auto_increment PRIMARY KEY");
+                    this.bigint(options.getPrimaryKey()).autoIncrement().primary();
                     break;
                 case "string":
-                    this.string(options.getPrimaryKey(), "PRIMARY KEY");
+                    this.string(options.getPrimaryKey()).primary();
                     break;
                 default: break;
             }
-
         }
     }
 
-    public void string(String name) {
+    public DBString string(String name) {
         DBString column = new DBString(name);
         columns.add(column);
-    }
-
-    public void string(String name, String options) {
-        DBString column = new DBString(name);
-        column.addOptions(options);
-        columns.add(column);
+        return column;
     }
 
     public void integer(String name) {
@@ -51,21 +45,11 @@ public class Table {
         columns.add(column);
     }
 
-    public void integer(String name, String options) {
-        DBInteger column = new DBInteger(name);
-        column.addOptions(options);
-        columns.add(column);
-    }
 
-    public void bigint(String name) {
+    public DBBigInt bigint(String name) {
         DBBigInt column = new DBBigInt(name);
         columns.add(column);
-    }
-
-    public void bigint(String name, String options) {
-        DBBigInt column = new DBBigInt(name);
-        column.addOptions(options);
-        columns.add(column);
+        return column;
     }
 
     public void timestamps() {
