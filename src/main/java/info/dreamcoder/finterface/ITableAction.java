@@ -1,10 +1,10 @@
 package info.dreamcoder.finterface;
 
-import info.dreamcoder.Table;
+import info.dreamcoder.table.ColumnMethod;
 
 @FunctionalInterface
 public interface ITableAction {
 
-    void run(Table table);
+    void run(ColumnMethod columnMethod);
 
 }

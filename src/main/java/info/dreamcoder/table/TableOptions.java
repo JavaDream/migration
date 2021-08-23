@@ -1,4 +1,4 @@
-package info.dreamcoder;
+package info.dreamcoder.table;
 
 public class TableOptions {
     private boolean needId = true;

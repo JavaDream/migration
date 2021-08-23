@@ -1,4 +1,4 @@
-package info.dreamcoder;
+package info.dreamcoder.table;
 
 import info.dreamcoder.config.Config;
 import info.dreamcoder.config.Factory;

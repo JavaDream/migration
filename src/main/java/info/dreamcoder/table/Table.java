@@ -1,13 +1,8 @@
-package info.dreamcoder;
-
-import info.dreamcoder.columns.*;
-
-import java.util.ArrayList;
-import java.util.List;
+package info.dreamcoder.table;
 
 public class Table {
     private String name;
-    private List<DBColumn> columns = new ArrayList<>();
+    ColumnMethod columnMethod = new ColumnMethod();
     private TableOptions options;
 
     public Table(String name) {
@@ -24,39 +19,18 @@ public class Table {
         if(options.isNeedId()) {
             switch (options.getIdType()) {
                 case "bigint":
-                    this.bigint(options.getPrimaryKey()).autoIncrement().primary();
+                    columnMethod.bigint(options.getPrimaryKey()).autoIncrement().primary();
                     break;
                 case "string":
-                    this.string(options.getPrimaryKey()).primary();
+                    columnMethod.string(options.getPrimaryKey()).primary();
                     break;
                 default: break;
             }
         }
     }
 
-    public DBString string(String name) {
-        DBString column = new DBString(name);
-        columns.add(column);
-        return column;
-    }
-
-    public void integer(String name) {
-        DBInteger column = new DBInteger(name);
-        columns.add(column);
-    }
-
-
-    public DBBigInt bigint(String name) {
-        DBBigInt column = new DBBigInt(name);
-        columns.add(column);
-        return column;
-    }
-
-    public void timestamps() {
-        DBTimestamp createdAt = new DBTimestamp("created_at");
-        DBTimestamp updatedAt = new DBTimestamp("updated_at");
-        columns.add(createdAt);
-        columns.add(updatedAt);
+    public ColumnMethod columnMethod() {
+        return this.columnMethod;
     }
 
     public String toSql() {
@@ -65,13 +39,7 @@ public class Table {
             sql.append("CREATE TABLE ").append(this.name).append("\n");
             sql.append("(\n");
 
-            for (int i = 0; i < columns.size(); i++) {
-                sql.append(columns.get(i).toSql());
-                if(i < columns.size() - 1) {
-                    sql.append(",\n");
-                }
-            }
-            sql.append("\n)");
+            sql.append(columnMethod.toSql());
 
             // 添加数据库的options 例如 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 这样的参数
             if(!options.getOptions().isEmpty()) {

@@ -1,5 +1,6 @@
 package info.dreamcoder;
 
+import info.dreamcoder.table.Table;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -59,6 +60,6 @@ class MigrationTest {
     void shouldGetATableObject() throws SQLException {
         Table table = Migration.createTable("test_table", t -> {});
 
-        assertThat(table.getClass().getName()).isEqualTo("info.dreamcoder.Table");
+        assertThat(table.getClass().getName()).isEqualTo("info.dreamcoder.table.Table");
     }
 }
