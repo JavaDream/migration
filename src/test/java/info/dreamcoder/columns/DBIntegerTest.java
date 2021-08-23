@@ -14,4 +14,11 @@ class DBIntegerTest {
         DBInteger col = new DBInteger("int_column");
         assertThat(col.sql()).isEqualTo("int_column int");
     }
+
+    @Test
+    @DisplayName("能设置整数列的自增长")
+    void shouldSetAutoIncrement() {
+        DBInteger col = new DBInteger("int_column").autoIncrement();
+        assertThat(col.sql()).isEqualTo("int_column int auto_increment");
+    }
 }

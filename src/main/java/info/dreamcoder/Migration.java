@@ -6,10 +6,7 @@ import info.dreamcoder.jdbc.Database;
 import java.sql.SQLException;
 
 
-/**
- * Hello world!
- *
- */
+
 public class Migration  {
 
     public static Table createTable(String name, ITableAction run) throws SQLException {
