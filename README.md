@@ -1,9 +1,9 @@
 # migration
 
 [![Java CI with Maven](https://github.com/JavaDream/migration/actions/workflows/maven.yml/badge.svg?branch=kotlin)](https://github.com/JavaDream/migration/actions/workflows/maven.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=JavaDream_migration&metric=alert_status)](https://sonarcloud.io/dashboard?id=JavaDream_migration)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=JavaDream_migration&metric=code_smells)](https://sonarcloud.io/dashboard?id=JavaDream_migration)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=JavaDream_migration&metric=coverage)](https://sonarcloud.io/dashboard?id=JavaDream_migration)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=JavaDream_migration&metric=alert_status&branch=kotlin)](https://sonarcloud.io/dashboard?id=JavaDream_migration&branch=kotlin)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=JavaDream_migration&metric=code_smells&branch=kotlin)](https://sonarcloud.io/dashboard?id=JavaDream_migration&branch=kotlin)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=JavaDream_migration&metric=coverage&branch=kotlin)](https://sonarcloud.io/dashboard?id=JavaDream_migration&branch=kotlin)
 
 
 Kotlin/Java 项目的数据migration工具
