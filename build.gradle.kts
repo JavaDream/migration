@@ -43,5 +43,6 @@ sonarqube {
         property("sonar.projectKey", "JavaDream_migration")
         property("sonar.organization", "javadream")
         property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml")
     }
 }
