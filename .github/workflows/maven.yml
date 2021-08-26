@@ -49,12 +49,9 @@ jobs:
         path: ~/.gradle/caches
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
         restore-keys: ${{ runner.os }}-gradle
-        
-    - name: Create Jacoco Report
-      run: ./gradlew jacocoTestReport
       
     - name: Build and analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: ./gradlew build sonarqube --info
+      run: ./gradlew build jacocoTestReport sonarqube --info
