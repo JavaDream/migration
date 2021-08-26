@@ -5,6 +5,7 @@ val kotestVersion = "4.6.1"
 plugins {
     kotlin("jvm") version "1.5.30"
     jacoco
+    id("org.sonarqube") version "3.3"
 }
 
 group = "info.dreamcoder"
@@ -34,5 +35,13 @@ tasks.jacocoTestReport {
     reports {
         xml.required.set(true)
         csv.required.set(true)
+    }
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "JavaDream_migration")
+        property("sonar.organization", "javadream")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
