@@ -8,6 +8,6 @@ class Builder {
     }
 
     fun toSql(): String {
-        return columns.joinToString(separator = "\n") { it.toSql() }
+        return columns.joinToString(separator = ",\n") { it.toSql() }
     }
 }
