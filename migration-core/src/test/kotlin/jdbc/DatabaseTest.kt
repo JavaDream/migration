@@ -7,8 +7,6 @@ import io.kotest.core.spec.DisplayName
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
-import io.kotest.matchers.shouldBe
-import org.assertj.db.type.Request
 import org.assertj.db.type.Source
 import java.sql.SQLException
 
@@ -16,8 +14,6 @@ import java.sql.SQLException
 class DatabaseTest : DescribeSpec({
 
     val database = Database(DbType.Sqlite)
-    val dbSource = Source(DbConfig(DbType.Sqlite).dbUrl, "", "")
-
     beforeEach {
         database.execute("drop table if exists test_table")
     }

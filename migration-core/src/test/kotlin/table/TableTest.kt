@@ -5,9 +5,6 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import jdbc.Database
-import table.Table
-import table.createTable
-import table.formatSql
 
 class TableTest : FunSpec({
     lateinit var table: Table
