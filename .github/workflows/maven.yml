@@ -27,14 +27,14 @@ jobs:
         java-version: '16'
         distribution: 'adopt'
       
-    - name: Shutdown Ubuntu MySQL (SUDO)
-      run: sudo service mysql stop
+#    - name: Shutdown Ubuntu MySQL (SUDO)
+#      run: sudo service mysql stop
       
-    - name: Setup MySQL
-      uses: mirromutth/mysql-action@v1.1
-      with:
-        mysql root password: ${{ env.MYSQL_PASSWORD }}
-        mysql database: db_test
+#    - name: Setup MySQL
+#      uses: mirromutth/mysql-action@v1.1
+#      with:
+#        mysql root password: ${{ env.MYSQL_PASSWORD }}
+#        mysql database: db_test
       
     - name: Cache SonarCloud packages
       uses: actions/cache@v1

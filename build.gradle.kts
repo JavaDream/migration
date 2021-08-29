@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.5.30"
-    jacoco
     id("org.sonarqube") version "3.3"
 }
 
@@ -17,11 +16,8 @@ allprojects {
 
 dependencies {}
 
-tasks.jacocoTestReport {
-    reports {
-        xml.required.set(true)
-        csv.required.set(true)
-    }
+tasks.withType<KotlinCompile>() {
+    kotlinOptions.jvmTarget = "13"
 }
 
 sonarqube {
