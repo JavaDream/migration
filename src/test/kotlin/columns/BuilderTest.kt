@@ -7,8 +7,8 @@ class BuilderTest : FunSpec({
     var builder: Builder = Builder()
 
     test("能正确添加列") {
-        builder.addColumn(DbBigInt("bigint_column1"))
-        builder.addColumn(DbBigInt("bigint_column2"))
+        builder bigInt "bigint_column1"
+        builder bigInt "bigint_column2"
 
         builder.toSql() shouldBe """
             bigint_column1 bigint,

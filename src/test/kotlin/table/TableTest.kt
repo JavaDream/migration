@@ -1,6 +1,11 @@
-import com.github.vertical_blank.sqlformatter.SqlFormatter
+package table
+
+import columns.ColumnType
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
+import table.Table
+import table.createTable
+import table.formatSql
 
 class TableTest : FunSpec({
     lateinit var table: Table
@@ -10,7 +15,7 @@ class TableTest : FunSpec({
     }
 
     test("bigInt 函数能正确的添加BigInt列") {
-        table.bigInt("bigint_column")
+        table.column.bigInt("bigint_column")
 
         table.toSql() shouldBe formatSql("""
             CREATE TABLE test_table (
@@ -21,8 +26,11 @@ class TableTest : FunSpec({
 
     test("createTable 函数能正确的创建表格") {
         val t = createTable("test_table") {
-            bigInt("bigint_column")
-            string("string_column")
+            option id true id ColumnType.String
+            option options "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+
+            column bigInt "bigint_column"
+            column string "string_column"
         }
         t.toSql() shouldBe formatSql("""
             CREATE TABLE test_table (

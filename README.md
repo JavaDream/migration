@@ -24,9 +24,12 @@ Kotlin/Java 项目的数据migration工具
 ## 使用
 
 ```kotlin
-createTable("test_table") { 
-    bigInt("bigint_column")
-    string("string_column")
+createTable("test_table") {
+    option id true id ColumnType.String
+    option options "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+
+    column bigInt "bigint_column"
+    column string "string_column"
 }
 ```
 

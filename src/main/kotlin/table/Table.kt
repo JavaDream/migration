@@ -1,22 +1,16 @@
-import columns.DbBigInt
+package table
+
 import columns.Builder
-import columns.DbInt
-import columns.DbString
 import com.github.vertical_blank.sqlformatter.SqlFormatter
 
 class Table(private val name: String) {
-    private val columnBuilder = Builder()
-
-    fun bigInt(name: String) = columnBuilder.addColumn(DbBigInt(name))
-
-    fun string(name: String) = columnBuilder.addColumn(DbString(name))
-
-    fun int(name: String) = columnBuilder.addColumn(DbInt(name))
+    val column = Builder()
+    val option = Option()
 
     fun toSql() : String {
         return formatSql("""
             CREATE TABLE $name (
-                ${columnBuilder.toSql()}
+                ${column.toSql()}
             )
         """.trimIndent())
     }
