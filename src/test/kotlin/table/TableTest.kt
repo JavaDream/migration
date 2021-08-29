@@ -2,7 +2,9 @@ package table
 
 import columns.ColumnType
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import jdbc.Database
 import table.Table
 import table.createTable
 import table.formatSql
@@ -38,5 +40,6 @@ class TableTest : FunSpec({
                 string_column varchar(100)
             )
         """)
+        Database().tableExists("test_table").shouldBeTrue()
     }
 })

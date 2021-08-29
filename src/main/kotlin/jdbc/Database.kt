@@ -5,7 +5,7 @@ import config.DbType
 import java.sql.DriverManager
 import java.sql.ResultSet
 
-class Database(private val dbType: DbType) {
+class Database(private val dbType: DbType = DbType.Sqlite) {
     private val config = DbConfig(dbType)
 
     private val dbConnection = DriverManager.getConnection(
@@ -37,6 +37,9 @@ class Database(private val dbType: DbType) {
         }
         val rs = query(sql)
 
-        return rs.next() && rs.getString(1) == name
+        val result = rs.next() && rs.getString(1) == name
+        rs.close()
+
+        return result
     }
 }
