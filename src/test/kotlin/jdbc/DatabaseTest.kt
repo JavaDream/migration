@@ -5,6 +5,7 @@ import config.DbType
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.spec.DisplayName
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import org.assertj.db.type.Request
@@ -39,18 +40,14 @@ class DatabaseTest : DescribeSpec({
     describe("函数execute") {
         it("正确的执行创建和删除表的sql语句") {
             database.execute("create table test_table_1(name int)")
-            var request = Request(dbSource, "select count(*) from sqlite_master where type='table' and name='test_table_1'")
-            request.getRow(0).getColumnValue(0).value shouldBe 1
+            database.tableExists("test_table_1").shouldBeTrue()
             database.execute("drop table test_table_1")
-            request = Request(dbSource, "select count(*) from sqlite_master where type='table' and name='test_table_1'")
-            request.getRow(0).getColumnValue(0).value shouldBe 0
+            database.tableExists("test_table_1").shouldBeFalse()
         }
     }
 
     describe("函数query") {
         database.execute("create table test_table_1(name int)")
-        val rs = database.query("select count(*) from sqlite_master where type='table' and name='test_table_1'")
-        rs.next()
-        rs.getInt(1) shouldBe 1
+        database.tableExists("test_table_1").shouldBeTrue()
     }
 })
