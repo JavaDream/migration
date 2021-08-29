@@ -23,4 +23,11 @@ Kotlin/Java 项目的数据migration工具
 
 ## 使用
 
+```kotlin
+createTable("test_table") { 
+    bigInt("bigint_column")
+    string("string_column")
+}
+```
+
 

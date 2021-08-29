@@ -1,5 +1,6 @@
 import columns.DbBigInt
 import columns.Builder
+import columns.DbInt
 import columns.DbString
 import com.github.vertical_blank.sqlformatter.SqlFormatter
 
@@ -9,6 +10,8 @@ class Table(private val name: String) {
     fun bigInt(name: String) = columnBuilder.addColumn(DbBigInt(name))
 
     fun string(name: String) = columnBuilder.addColumn(DbString(name))
+
+    fun int(name: String) = columnBuilder.addColumn(DbInt(name))
 
     fun toSql() : String {
         return formatSql("""
