@@ -29,7 +29,7 @@ createTable("test_table") {
     option options "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
 
     column bigInt "bigint_column"
-    column string "string_column"
+    column string "string_column" limit 20
 }
 ```
 

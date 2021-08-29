@@ -30,12 +30,12 @@ class TableTest : FunSpec({
             option options "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
 
             column bigInt "bigint_column"
-            column string "string_column"
+            column string "string_column" limit 100
         }
         t.toSql() shouldBe formatSql("""
             CREATE TABLE test_table (
                 bigint_column bigint,
-                string_column varchar(250)
+                string_column varchar(100)
             )
         """)
     }
