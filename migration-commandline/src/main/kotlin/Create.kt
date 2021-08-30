@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class Create : CliktCommand(help="创建迁移脚本") {
-    private val path = "/tmp/project" //未来要改成项目目录
+    private val path = "/tmp" //未来要改成项目目录
     private val name by argument().default("migration")
 
     override fun run() {
