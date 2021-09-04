@@ -12,14 +12,12 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
-
     implementation("com.github.vertical-blank:sql-formatter:2.0.2")
 
     testImplementation("mysql:mysql-connector-java:8.0.26")
     testImplementation("org.xerial:sqlite-jdbc:3.36.0.2")
     testImplementation("org.assertj:assertj-db:2.0.2")
-    testImplementation(kotlin("test"))
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.5.30")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest:kotest-property:$kotestVersion")
@@ -31,7 +29,7 @@ tasks.test {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
-    kotlinOptions.jvmTarget = "14"
+    kotlinOptions.jvmTarget = "16"
 }
 
 tasks.jacocoTestReport {

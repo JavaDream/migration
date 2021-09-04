@@ -7,7 +7,7 @@ class CreateTest : FunSpec({
 
     test("run方法能正确的生成文件") {
         Create().parse(listOf())
-        File("/tmp").walk().shouldExist {
+        File(Migration.path).walk().shouldExist {
             Regex(".*\\.kt").matches(it.name)
         }
     }
