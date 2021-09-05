@@ -6,6 +6,10 @@ import java.sql.DriverManager
 import java.sql.ResultSet
 
 class Database(private val dbType: DbType = DbType.Sqlite) {
+    companion object {
+        val instance = Database()
+    }
+
     private val config = DbConfig(dbType)
 
     private val dbConnection = DriverManager.getConnection(

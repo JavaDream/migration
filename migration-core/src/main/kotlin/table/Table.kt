@@ -16,4 +16,11 @@ class Table(private val name: String) {
             )
         """.formatSql()
     }
+
+    fun executeToDatabase() {
+        val database = Database.instance
+        if(!database.tableExists(name)) {
+            database.execute(toSql())
+        }
+    }
 }

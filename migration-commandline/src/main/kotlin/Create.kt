@@ -33,6 +33,6 @@ class Create : CliktCommand(help="创建迁移脚本") {
     private fun createMigrationTable() {
         Command().createTable("migrations") {
             column string "name"
-        }
+        }.executeToDatabase()
     }
 }

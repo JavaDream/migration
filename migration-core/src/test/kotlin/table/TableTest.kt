@@ -6,6 +6,7 @@ import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import jdbc.Database
+import tasks.Migration
 import utils.formatSql
 
 class TableTest : FunSpec({
@@ -23,5 +24,13 @@ class TableTest : FunSpec({
                 bigint_column bigint
             )
         """.formatSql()
+    }
+
+    test("executeToDatabase 能在数据库中正确的创建表") {
+        val t = Table("test_table")
+        t.column.bigInt("bigint_column")
+        t.executeToDatabase()
+        val database = Database.instance
+        database.tableExists("test_table").shouldBeTrue()
     }
 })

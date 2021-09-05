@@ -18,9 +18,9 @@ dependencies {
     testImplementation("org.xerial:sqlite-jdbc:3.36.0.2")
     testImplementation("org.assertj:assertj-db:2.0.2")
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.5.30")
-    testImplementation("io.kotest:kotest-runner-junit5:${project.properties["kotestVersion"]}")
-    testImplementation("io.kotest:kotest-assertions-core:${project.properties["kotestVersion"]}")
-    testImplementation("io.kotest:kotest-property:${project.properties["kotestVersion"]}")
+    testImplementation("io.kotest:kotest-runner-junit5:${properties["kotestVersion"]}")
+    testImplementation("io.kotest:kotest-assertions-core:${properties["kotestVersion"]}")
+    testImplementation("io.kotest:kotest-property:${properties["kotestVersion"]}")
     testImplementation("io.mockk:mockk:1.12.0")
 }
 

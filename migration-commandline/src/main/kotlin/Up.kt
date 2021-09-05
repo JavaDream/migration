@@ -1,4 +1,5 @@
 import com.github.ajalt.clikt.core.CliktCommand
+import jdbc.Database
 import java.io.File
 import java.time.LocalDateTime
 
@@ -15,7 +16,7 @@ class Up : CliktCommand(help="创建迁移脚本") {
     }
 
     private fun currentVersion(): String {
-        val migrations = Migration.database.query(
+        val migrations = Database.instance.query(
             "select top 1 * from migrations order by id desc")
         if(migrations.next()) {
             return migrations.getString("name").split("_").first()

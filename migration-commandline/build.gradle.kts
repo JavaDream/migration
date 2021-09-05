@@ -14,9 +14,9 @@ dependencies {
     implementation(project(":migration-core"))
 
     testImplementation("org.xerial:sqlite-jdbc:3.36.0.2")
-    testImplementation("io.kotest:kotest-runner-junit5:${project.properties["kotestVersion"]}")
-    testImplementation("io.kotest:kotest-assertions-core:${project.properties["kotestVersion"]}")
-    testImplementation("io.kotest:kotest-property:${project.properties["kotestVersion"]}")
+    testImplementation("io.kotest:kotest-runner-junit5:${properties["kotestVersion"]}")
+    testImplementation("io.kotest:kotest-assertions-core:${properties["kotestVersion"]}")
+    testImplementation("io.kotest:kotest-property:${properties["kotestVersion"]}")
 }
 
 tasks.test {

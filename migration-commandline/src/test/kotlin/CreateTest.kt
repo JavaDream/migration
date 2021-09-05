@@ -2,6 +2,7 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.sequences.shouldExist
 import io.kotest.matchers.shouldBe
+import jdbc.Database
 import java.io.File
 
 class CreateTest : FunSpec({
@@ -12,7 +13,7 @@ class CreateTest : FunSpec({
             Regex(".*\\.kt").matches(it.name)
         }
 
-        Migration.database.tableExists("migrations").shouldBeTrue()
+        Database.instance.tableExists("migrations").shouldBeTrue()
     }
 })
 
