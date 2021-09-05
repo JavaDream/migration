@@ -1,9 +1,13 @@
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.subcommands
+import jdbc.Database
+import java.time.format.DateTimeFormatter
 
 class Migration : CliktCommand() {
     companion object {
-        val path = "/tmp" //未来要改成项目目录
+        const val path = "/tmp/migrations" //未来要改成项目目录
+        val database = Database()
+        val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("YYYYMMDDHHMMSS")
     }
 
     override fun run() = Unit

@@ -14,7 +14,8 @@ allprojects {
     version = "1.0-SNAPSHOT"
 }
 
-dependencies {}
+dependencies {
+}
 
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "16"

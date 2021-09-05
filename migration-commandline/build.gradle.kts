@@ -1,4 +1,4 @@
-val kotestVersion = "4.6.1"
+
 
 plugins {
     kotlin("jvm")
@@ -12,9 +12,11 @@ repositories {
 dependencies {
     implementation("com.github.ajalt.clikt:clikt:3.2.0")
     implementation(project(":migration-core"))
-    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
-    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
-    testImplementation("io.kotest:kotest-property:$kotestVersion")
+
+    testImplementation("org.xerial:sqlite-jdbc:3.36.0.2")
+    testImplementation("io.kotest:kotest-runner-junit5:${project.properties["kotestVersion"]}")
+    testImplementation("io.kotest:kotest-assertions-core:${project.properties["kotestVersion"]}")
+    testImplementation("io.kotest:kotest-property:${project.properties["kotestVersion"]}")
 }
 
 tasks.test {

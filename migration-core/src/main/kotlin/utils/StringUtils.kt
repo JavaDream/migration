@@ -1,7 +1,13 @@
 package utils
 
+import com.github.vertical_blank.sqlformatter.SqlFormatter
+
 fun String.camelize() : String {
     return this.split("_").joinToString("") {
             word ->  word.lowercase().replaceFirstChar{ it.uppercase() }
     }
+}
+
+fun String.formatSql() : String {
+    return SqlFormatter.format(this)
 }
