@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     implementation("com.github.vertical-blank:sql-formatter:2.0.2")
+    implementation("info.dreamcoder:kotby:deeeb637d2")
 
     testImplementation("mysql:mysql-connector-java:8.0.26")
     testImplementation("org.xerial:sqlite-jdbc:3.36.0.2")

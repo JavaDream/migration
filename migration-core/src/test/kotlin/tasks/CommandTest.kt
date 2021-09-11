@@ -1,11 +1,11 @@
 package tasks
 
 import columns.ColumnType
+import formatSql
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.shouldBe
 import jdbc.Database
-import utils.formatSql
 
 class CommandTest : FunSpec({
 

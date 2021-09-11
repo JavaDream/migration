@@ -12,6 +12,11 @@ repositories {
 allprojects {
     group = "info.dreamcoder"
     version = "1.0-SNAPSHOT"
+    repositories {
+        maven {
+            url = uri("https://jitpack.io")
+        }
+    }
 }
 
 dependencies {

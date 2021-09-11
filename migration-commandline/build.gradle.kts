@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     implementation("com.github.ajalt.clikt:clikt:3.2.0")
+    implementation("info.dreamcoder:kotby:deeeb637d2")
     implementation(project(":migration-core"))
 
     testImplementation("org.xerial:sqlite-jdbc:3.36.0.2")

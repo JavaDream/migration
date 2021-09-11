@@ -1,9 +1,8 @@
 package table
 
 import columns.Builder
-import com.github.vertical_blank.sqlformatter.SqlFormatter
+import formatSql
 import jdbc.Database
-import utils.formatSql
 
 class Table(private val name: String) {
     val column = Builder()

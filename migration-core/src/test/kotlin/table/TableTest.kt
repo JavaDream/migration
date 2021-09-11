@@ -1,13 +1,10 @@
 package table
 
-import columns.ColumnType
+import formatSql
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import jdbc.Database
-import tasks.Migration
-import utils.formatSql
 
 class TableTest : FunSpec({
     lateinit var table: Table
