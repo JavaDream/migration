@@ -1,14 +1,16 @@
-import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.parameters.arguments.argument
-import com.github.ajalt.clikt.parameters.arguments.default
+import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.TaskAction
 import tasks.Command
 import java.io.File
 import java.time.LocalDateTime
 
-class Create : CliktCommand(help="创建迁移脚本") {
-    private val name by argument().default("migration")
+class CreateTask : DefaultTask() {
+    @Input
+    private val migrationName = "migration"
 
-    override fun run() {
+    @TaskAction
+    fun run() {
         createFile()
         createMigrationTable()
     }
@@ -21,7 +23,7 @@ class Create : CliktCommand(help="创建迁移脚本") {
     private fun fileName() : String {
         val file = File(Migration.path)
         file.mkdir()
-        return "${Migration.path}/${now()}_${name.camelize()}.kt"
+        return "${Migration.path}/${now()}_${migrationName.camelize()}.kt"
     }
 
     private fun now() : String {

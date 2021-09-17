@@ -1,23 +1,10 @@
-
-
 plugins {
-    kotlin("jvm")
-    jacoco
-}
-
-repositories {
-    mavenCentral()
+    id("java-gradle-plugin")
 }
 
 dependencies {
-    implementation("com.github.ajalt.clikt:clikt:3.2.0")
-    implementation("info.dreamcoder:kotby:deeeb637d2")
+    implementation(gradleApi())
     implementation(project(":migration-core"))
-
-    testImplementation("org.xerial:sqlite-jdbc:3.36.0.2")
-    testImplementation("io.kotest:kotest-runner-junit5:${properties["kotestVersion"]}")
-    testImplementation("io.kotest:kotest-assertions-core:${properties["kotestVersion"]}")
-    testImplementation("io.kotest:kotest-property:${properties["kotestVersion"]}")
 }
 
 tasks.test {
@@ -34,3 +21,13 @@ tasks.jacocoTestReport {
         csv.required.set(true)
     }
 }
+
+gradlePlugin {
+    plugins {
+        create("migrationPlugin") {
+            id = "info.dreamcoder.migration"
+            implementationClass = "CreateTask"
+        }
+    }
+}
+
