@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 class CreateTask : DefaultTask() {
     @Input
-    private val migrationName = "migration"
+    val migrationName = "migration"
 
     @TaskAction
     fun run() {
