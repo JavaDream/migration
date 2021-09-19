@@ -2,6 +2,7 @@ package config
 
 import io.kotest.core.spec.DisplayName
 import io.kotest.core.spec.style.DescribeSpec
+import io.kotest.core.spec.style.Test
 import io.kotest.matchers.shouldBe
 
 @DisplayName("DbConfig类")
