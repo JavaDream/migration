@@ -1,11 +1,13 @@
 package tasks
 
-import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.shouldBe
+import org.amshove.kluent.shouldBeEqualTo
+import org.junit.jupiter.api.Test
 
-class MigrationTest : FunSpec({
+class MigrationTest {
 
-    test("version") {
+    @Test
+    fun version() {
+
         M.version("202109248120969") {
             up {
                 createTable("test_table") {
@@ -14,6 +16,6 @@ class MigrationTest : FunSpec({
             }
         }
 
-        M.tasks.size shouldBe 1
+        M.tasks.size shouldBeEqualTo 1
     }
-})
+}

@@ -1,29 +1,35 @@
 package columns
 
-import io.kotest.core.spec.DisplayName
-import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
-@DisplayName("测试类 DbString")
-class DbStringTest : DescribeSpec({
+class DbStringTest {
 
-    lateinit var column: DbString
+    private lateinit var column: DbString
 
-    beforeEach {
-        column = DbString("test_column")
+    @BeforeEach
+    fun initColumn() {
+        column = DbString("test_column");
     }
 
-    describe("toSql方法") {
-        it("默认生成250 varchar类型的列") {
-            column.toSql() shouldBe "test_column varchar(250)"
-        }
+    @Test
+    @DisplayName("默认生成250 varchar类型的列")
+    fun shouldCreateVarcharColumnWith250Length() {
+        assertEquals(
+            column.toSql(),
+            "test_column varchar(250)"
+        )
     }
 
-    describe("limit 方法") {
-        it("能修改varchar类型的长度") {
-            column.limit(100)
-            column.toSql() shouldBe "test_column varchar(100)"
-        }
+    @Test
+    @DisplayName("能修改varchar类型的长度")
+    fun canChangeColumnLength() {
+        column.limit(100)
+        assertEquals(
+            column.toSql(),
+            "test_column varchar(100)"
+        )
     }
-
-})
+}

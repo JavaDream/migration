@@ -2,14 +2,18 @@ package tasks
 
 import columns.ColumnType
 import formatSql
-import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.booleans.shouldBeFalse
-import io.kotest.matchers.shouldBe
 import jdbc.Database
+import org.amshove.kluent.shouldBeEqualTo
+import org.amshove.kluent.shouldBeFalse
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 
-class CommandTest : FunSpec({
+class CommandTest {
 
-    test("createTable 函数能正确的创建表格") {
+    @Test
+    @DisplayName("createTable 函数能正确的生成创建表格的sql")
+    fun shouldCreateCorrectSqlWhenCallCreateTable() {
+
         val t = Command().createTable("test_table") {
             option id true id ColumnType.String
             option options "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
@@ -17,12 +21,13 @@ class CommandTest : FunSpec({
             column bigInt "bigint_column"
             column string "string_column" limit 100
         }
-        t.toSql() shouldBe """
+        t.toSql() shouldBeEqualTo  """
             CREATE TABLE test_table (
                 bigint_column bigint,
                 string_column varchar(100)
             )
         """.formatSql()
+
         Database().tableExists("test_table").shouldBeFalse()
     }
-})
+}

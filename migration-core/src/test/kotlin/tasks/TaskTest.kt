@@ -1,19 +1,26 @@
 package tasks
 
-import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeInstanceOf
+import org.amshove.kluent.shouldBeEqualTo
+import org.amshove.kluent.shouldBeInstanceOf
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 
-class TaskTest : FunSpec({
+
+class TaskTest {
+
     val t = Task("202109248120969")
 
-
-    test("up 和 down 方法") {
-        t.up { this.shouldBeInstanceOf<Command>() }
-        t.down { this.shouldBeInstanceOf<Command>() }
+    @Test
+    @DisplayName("存在Up和Down方法")
+    fun shouldExistsUpAndDownMethod() {
+        t.up { this shouldBeInstanceOf Command::class }
+        t.down { this shouldBeInstanceOf Command::class }
     }
 
-    test("version") {
-        t.version shouldBe "202109248120969"
+    @Test
+    @DisplayName("能正确得到版本")
+    fun couldGetVersion() {
+        t.version shouldBeEqualTo "202109248120969"
     }
-})
+
+}

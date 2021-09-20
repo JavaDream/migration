@@ -1,13 +1,19 @@
 package columns
 
-import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
-class DbIntTest : DescribeSpec({
 
-    it("能正确生成sql") {
+internal class DbIntTest {
+
+    @Test
+    @DisplayName("能正确生成sql")
+    fun shouldGenerateSQLCorrectly() {
         val column = DbInt("test_int_column")
-        column.toSql() shouldBe "test_int_column int"
+        assertEquals(
+            column.toSql(),
+            "test_int_column int"
+        )
     }
-
-})
+}

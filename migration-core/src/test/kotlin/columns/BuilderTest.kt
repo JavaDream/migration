@@ -1,18 +1,27 @@
 package columns
 
-import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
-class BuilderTest : FunSpec({
-    var builder: Builder = Builder()
 
-    test("能正确添加列") {
+internal class BuilderTest {
+
+    @Test
+    @DisplayName("能正确添加列")
+    fun columnsCanBeAddedCorrectly() {
+        var builder: Builder = Builder()
+
         builder bigInt "bigint_column1"
         builder bigInt "bigint_column2"
 
-        builder.toSql() shouldBe """
-            bigint_column1 bigint,
-            bigint_column2 bigint
-        """.trimIndent()
+        assertEquals(
+            builder.toSql(),
+            """
+                bigint_column1 bigint,
+                bigint_column2 bigint
+            """.trimIndent()
+        )
     }
-})
+}

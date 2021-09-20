@@ -18,9 +18,6 @@ subprojects {
     dependencies {
         implementation("info.dreamcoder:kotby:deeeb637d2")
         testImplementation("org.xerial:sqlite-jdbc:3.36.0.2")
-        testImplementation("io.kotest:kotest-runner-junit5:4.6.3")
-        testImplementation("io.kotest:kotest-assertions-core:4.6.3")
-        testImplementation("io.kotest:kotest-property:4.6.3")
     }
 }
 
@@ -57,6 +54,7 @@ allprojects {
 
     dependencies {
         implementation("org.junit.jupiter:junit-jupiter:5.7.0")
+        testImplementation("org.amshove.kluent:kluent:1.68")
     }
 
     publishing {

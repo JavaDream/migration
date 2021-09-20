@@ -1,74 +1,117 @@
 package table
 
 import columns.ColumnType
-import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.matchers.shouldBe
+import org.amshove.kluent.*
+import org.junit.jupiter.api.*
 
-class OptionTest : DescribeSpec({
-
+class OptionTest {
     lateinit var option: Option
 
-    beforeEach {
+    @BeforeEach
+    fun initOption() {
         option = Option()
     }
 
-    describe("id配置") {
-        it("默认值是true") {
-            option.needId shouldBe true
+    @Nested
+    @DisplayName("id配置")
+    inner class IdOptionTest {
+
+        @Test
+        @DisplayName("默认值是true")
+        fun defaultValueShouldBeTrue() {
+            option.needId.shouldBeTrue()
         }
 
-        it("能关闭id") {
+        @Test
+        @DisplayName("能关闭id")
+        fun couldDisableId() {
             option id false
-            option.needId shouldBe false
+            option.needId.shouldBeFalse()
         }
 
-        it("能正确设置id列的名字") {
+        @Test
+        @DisplayName("能正确设置id列的名字")
+        fun couldSetIdColumnName() {
             option id ColumnType.String
-            option.idType shouldBe ColumnType.String
+
+            option.idType shouldBeEqualTo ColumnType.String
         }
     }
 
-    describe("primaryKey配置") {
-        it("默认名字是id") {
-            option.primaryKey shouldBe "id"
+    @Nested
+    @DisplayName("primaryKey配置")
+    inner class PrimaryKeyOptionTest() {
+
+        @Test
+        @DisplayName("默认名字是id")
+        fun defaultNameIsId() {
+            option.primaryKey shouldBeEqualTo "id"
         }
 
-        it("能正确配置名字") {
+        @Test
+        @DisplayName("能正确设置名字")
+        fun couldSetName() {
             option primaryKey "test_key"
-            option.primaryKey shouldBe "test_key"
+            option.primaryKey shouldBeEqualTo "test_key"
         }
     }
 
-    describe("options配置") {
-        it("默认值是空字符串") {
-            option.options shouldBe ""
+    @Nested
+    @DisplayName("options配置")
+    inner class OptionsTest() {
+
+        @Test
+        @DisplayName("默认值是空字符串")
+        fun defaultValueIsBlankString() {
+            option.options.shouldBeEmpty()
         }
 
-        it("能正确配置") {
-            option options "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
-            option.options shouldBe "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+        @Test
+        @DisplayName("能正确配置")
+        fun couldSetValue() {
+            val options = "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+            option options options
+            option.options shouldBeEqualTo options
         }
     }
 
-    describe("force配置") {
-        it("默认值是false") {
-            option.force shouldBe false
+    @Nested
+    @DisplayName("force配置")
+    inner class ForceOptionTest() {
+
+        @Test
+        @DisplayName("默认值是false")
+        fun defaultValueIsFalse() {
+            option.force shouldBeEqualTo false
         }
 
-        it("能正确配置") {
+        @Test
+        @DisplayName("能正确配置")
+        fun couldSetValue() {
             option force true
-            option.force shouldBe true
+            option.force shouldBeEqualTo true
         }
     }
 
-    describe("asSql配置") {
-        it("默认值是空字符串") {
-            option.asSql shouldBe ""
+    @Nested
+    @DisplayName("asSql配置")
+    inner class AsSqlOptionTest() {
+
+        @Test
+        @DisplayName("默认值是空字符串")
+        fun defaultValueIsFalse() {
+            option.asSql.shouldBeEmpty()
         }
 
-        it("能正确配置") {
-            option asSql "SELECT * FROM orders INNER JOIN line_items ON order_id=orders.id"
-            option.asSql shouldBe "SELECT * FROM orders INNER JOIN line_items ON order_id=orders.id"
+        @Test
+        @DisplayName("能正确配置")
+        fun couldSetValue() {
+            val sql = "SELECT * FROM orders INNER JOIN line_items ON order_id=orders.id"
+            option asSql sql
+            option.asSql shouldBeEqualTo sql
         }
     }
-})
+
+
+
+}

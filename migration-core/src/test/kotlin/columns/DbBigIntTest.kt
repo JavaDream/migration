@@ -1,13 +1,19 @@
 package columns
 
-import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
-class DbBigIntTest : DescribeSpec({
 
-    it("能正确生成sql") {
+internal class DbBigIntTest {
+
+    @Test
+    @DisplayName("能正确生成sql")
+    fun shouldGenerateSQLCorrectly() {
         val column = DbBigInt("test_bigint_column")
-        column.toSql() shouldBe "test_bigint_column bigint"
+        assertEquals(
+            column.toSql(),
+            "test_bigint_column bigint"
+        )
     }
-
-})
+}

@@ -1,8 +1,9 @@
 import jdbc.Database
+import org.amshove.kluent.shouldBeTrue
+import org.amshove.kluent.shouldNotBeNull
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
 import java.io.File
 
 internal class CreatePluginTest {
@@ -11,27 +12,25 @@ internal class CreatePluginTest {
     fun createFile() {
         clearMigrations()
         CreatePlugin().createFile()
-        assertTrue(
-            File(Migration.path).walk().any {
-                Regex(".*\\.kt").matches(it.name)
-            }
-        )
+
+        File(Migration.path).walk().any {
+            Regex(".*\\.kt").matches(it.name)
+        }.shouldBeTrue()
+
     }
 
     @Test
     fun createMigrationTable() {
         CreatePlugin().createMigrationTable()
 
-        assertTrue(
-            Database.instance.tableExists("migrations")
-        )
+        Database.instance.tableExists("migrations").shouldBeTrue()
     }
 
     @Test
     fun shouldCreateMigrationCreateTask() {
         val project = ProjectBuilder.builder().build()
         project.pluginManager.apply("info.dreamcoder.migration")
-        assertNotNull( project.tasks.getByName("migration.create") )
+        project.tasks.getByName("migration.create").shouldNotBeNull()
     }
 
 

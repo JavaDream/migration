@@ -26,7 +26,7 @@ open class CreatePlugin : Plugin<Project> {
 
     fun createMigrationTable() {
 //         由于Gradle不能自动加载数据库的驱动，所以这儿要手动加载, 暂时先加载sqlite的，未来还要加载mysql等各种支持的数据库
-        Class.forName("org.sqlite.JDBC");
+        Class.forName("org.sqlite.JDBC")
         Command().createTable("migrations") {
             column string "name"
         }.executeToDatabase()
