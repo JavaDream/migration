@@ -5,10 +5,18 @@ import formatSql
 import jdbc.Database
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldBeFalse
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class CommandTest {
+
+    val database = Database()
+
+    @BeforeEach
+    fun initTable() {
+        database.execute("drop table if exists test_table")
+    }
 
     @Test
     @DisplayName("createTable 函数能正确的生成创建表格的sql")

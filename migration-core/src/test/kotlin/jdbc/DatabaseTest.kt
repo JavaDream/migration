@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 import java.sql.SQLException as SQLException
 
 class DatabaseTest {
-    val database = Database(DbType.Sqlite)
+    val database = Database()
 
     @BeforeEach
     fun initTable() {
