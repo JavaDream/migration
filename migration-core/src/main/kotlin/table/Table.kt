@@ -1,8 +1,9 @@
 package table
 
+import jdbc.Database
 import columns.Builder
 import formatSql
-import jdbc.Database
+
 
 class Table(private val name: String) {
     val column = Builder()
