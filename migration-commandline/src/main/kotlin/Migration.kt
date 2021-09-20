@@ -1,14 +1,11 @@
-import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.TaskAction
-import java.time.format.DateTimeFormatter
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import tasks.CreateTask
 
-class Migration : DefaultTask() {
-    companion object {
-        const val path = "/tmp/migrations" //未来要改成项目目录
-        val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("YYYYMMDDHHMMSS")
+class Migration : Plugin<Project> {
+
+    override fun apply(target: Project) {
+        target.tasks.create("migration.create", CreateTask::class.java)
     }
-
-    @TaskAction
-    fun run() = Unit
 }
 

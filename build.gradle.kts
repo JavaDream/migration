@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm") version "1.5.30"
     id("org.sonarqube") version "3.3"
     id("maven-publish")
+    id("jacoco")
 }
 
 repositories {
@@ -11,7 +12,6 @@ repositories {
 }
 
 subprojects {
-
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "jacoco")
 
@@ -19,15 +19,26 @@ subprojects {
         implementation("info.dreamcoder:kotby:deeeb637d2")
         testImplementation("org.xerial:sqlite-jdbc:3.36.0.2")
     }
+
+    tasks.withType<KotlinCompile>() {
+        kotlinOptions.jvmTarget = "16"
+    }
+
+    tasks.test {
+        useJUnitPlatform()
+    }
+
+    tasks.jacocoTestReport {
+        reports {
+            xml.required.set(true)
+            csv.required.set(true)
+        }
+    }
 }
 
 dependencies {
     api(project("migration-core"))
     api(project("migration-commandline"))
-}
-
-tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "16"
 }
 
 sonarqube {
@@ -40,7 +51,7 @@ sonarqube {
 
 allprojects {
     apply(plugin = "maven-publish")
-    apply(plugin = "java")
+    
 
     repositories {
         mavenCentral()

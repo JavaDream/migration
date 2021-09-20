@@ -1,5 +1,4 @@
 
-val kotestVersion = "4.6.1"
 
 dependencies {
     implementation("com.github.vertical-blank:sql-formatter:2.0.2")
@@ -11,17 +10,3 @@ dependencies {
     testImplementation("io.mockk:mockk:1.12.0")
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>() {
-    kotlinOptions.jvmTarget = "16"
-}
-
-tasks.jacocoTestReport {
-    reports {
-        xml.required.set(true)
-        csv.required.set(true)
-    }
-}

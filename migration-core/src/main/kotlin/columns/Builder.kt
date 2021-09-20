@@ -15,9 +15,9 @@ class Builder {
         return column
     }
 
-    infix fun int(name: String): DbString {
-        val column = DbString(name)
-        addColumn(DbInt(name))
+    infix fun int(name: String): DbInt {
+        val column = DbInt(name)
+        addColumn(column)
         return column
     }
 

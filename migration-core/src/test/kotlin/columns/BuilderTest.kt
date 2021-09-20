@@ -13,13 +13,13 @@ internal class BuilderTest {
         var builder: Builder = Builder()
 
         builder bigInt "bigint_column1"
-        builder bigInt "bigint_column2"
+        builder int    "int_column2"
 
         assertEquals(
             builder.toSql(),
             """
                 bigint_column1 bigint,
-                bigint_column2 bigint
+                int_column2 int
             """.trimIndent()
         )
     }
