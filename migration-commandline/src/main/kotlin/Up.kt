@@ -5,7 +5,6 @@
 //
 //class Up : CliktCommand(help="创建迁移脚本") {
 //    override fun run() {
-//        TODO("Not yet implemented")
 //    }
 //
 //    private fun versionList() : List<String> {

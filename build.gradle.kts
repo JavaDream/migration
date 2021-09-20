@@ -51,7 +51,7 @@ sonarqube {
 
 allprojects {
     apply(plugin = "maven-publish")
-    
+
 
     repositories {
         mavenCentral()
