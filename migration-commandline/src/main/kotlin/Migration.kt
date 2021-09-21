@@ -5,7 +5,9 @@ import tasks.CreateTask
 class Migration : Plugin<Project> {
 
     override fun apply(target: Project) {
-        target.tasks.create("migration.create", CreateTask::class.java)
+        target.tasks.create("migration.create", CreateTask::class.java) {
+            it.group = "dreamcoder"
+        }
     }
 }
 
