@@ -5,6 +5,7 @@ plugins {
     id("org.sonarqube") version "3.3"
     id("maven-publish")
     id("jacoco")
+    id("com.adarshr.test-logger") version "3.0.0"
 }
 
 repositories {
@@ -12,8 +13,11 @@ repositories {
 }
 
 subprojects {
-    apply(plugin = "org.jetbrains.kotlin.jvm")
-    apply(plugin = "jacoco")
+    apply {
+        plugin("org.jetbrains.kotlin.jvm")
+        plugin("jacoco")
+        plugin("com.adarshr.test-logger")
+    }
 
     dependencies {
         implementation("info.dreamcoder:kotby:deeeb637d2")
@@ -26,6 +30,9 @@ subprojects {
 
     tasks.test {
         useJUnitPlatform()
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
     }
 
     tasks.jacocoTestReport {
@@ -34,6 +41,16 @@ subprojects {
             csv.required.set(true)
         }
     }
+
+
+
+    configure<com.adarshr.gradle.testlogger.TestLoggerExtension> {
+        theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
+        slowThreshold = 5000
+        showStackTraces = false
+        showSummary = true
+    }
+
 }
 
 dependencies {
