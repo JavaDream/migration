@@ -5,7 +5,7 @@ plugins {
     id("org.sonarqube") version "3.3"
     id("maven-publish")
     id("jacoco")
-    id("com.adarshr.test-logger") version "3.0.0"
+    id("info.dreamcoder.devtools") version "1.3.2"
 }
 
 repositories {
@@ -16,23 +16,11 @@ subprojects {
     apply {
         plugin("org.jetbrains.kotlin.jvm")
         plugin("jacoco")
-        plugin("com.adarshr.test-logger")
     }
 
     dependencies {
-        implementation("info.dreamcoder:kotby:deeeb637d2")
+        implementation("info.dreamcoder:kotby:0.2")
         testImplementation("org.xerial:sqlite-jdbc:3.36.0.2")
-    }
-
-    tasks.withType<KotlinCompile>() {
-        kotlinOptions.jvmTarget = "16"
-    }
-
-    tasks.test {
-        useJUnitPlatform()
-        testLogging {
-            events("passed", "skipped", "failed")
-        }
     }
 
     tasks.jacocoTestReport {
@@ -40,15 +28,6 @@ subprojects {
             xml.required.set(true)
             csv.required.set(true)
         }
-    }
-
-
-
-    configure<com.adarshr.gradle.testlogger.TestLoggerExtension> {
-        theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
-        slowThreshold = 5000
-        showStackTraces = false
-        showSummary = true
     }
 
 }
@@ -72,17 +51,23 @@ allprojects {
 
     repositories {
         mavenCentral()
-        maven {
-            url = uri("https://jitpack.io")
-        }
+        maven("https://jitpack.io")
     }
 
     group = "info.dreamcoder"
     version = "0.1"
 
+    tasks.withType<KotlinCompile>() {
+        kotlinOptions.jvmTarget = "16"
+    }
+
     dependencies {
-        implementation("org.junit.jupiter:junit-jupiter:5.7.0")
+        implementation("org.junit.jupiter:junit-jupiter:5.8.1")
         testImplementation("org.amshove.kluent:kluent:1.68")
+    }
+
+    tasks.test {
+        useJUnitPlatform()
     }
 
     publishing {
