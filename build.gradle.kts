@@ -21,6 +21,7 @@ subprojects {
     dependencies {
         implementation("info.dreamcoder:kotby:0.2")
         testImplementation("org.xerial:sqlite-jdbc:3.36.0.2")
+        testImplementation("io.mockk:mockk:1.12.0")
     }
 
     tasks.jacocoTestReport {

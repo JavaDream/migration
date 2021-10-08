@@ -1,0 +1,5 @@
+.idea
+target
+.gradle
+build
+src/main/kotlin/migrations

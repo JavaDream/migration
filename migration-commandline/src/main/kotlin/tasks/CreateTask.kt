@@ -8,29 +8,22 @@ import java.io.File
 import java.sql.DriverManager
 import java.time.LocalDateTime
 
-open class CreateTask : DefaultTask() {
+open class CreateTask : BaseTask() {
+
     @Input
     val migrationName = "migration"
 
-    private fun createFile() {
-        var file = File(fileName())
-        file.writeText("migration")
-    }
+    private fun createFile() = File(fileName()).writeText("migration")
 
-    private fun fileName() : String {
-        val file = File(MigrationConfig.path)
+    private fun fileName(): String {
+        val file = File(config.migrationPath())
         file.mkdir()
-        return "${MigrationConfig.path}/${now()}_${migrationName.camelize()}.kt"
+        return config.migrationPath("${now()}_${migrationName.camelize()}.kt")
     }
 
-    private fun now() : String {
-        val now = LocalDateTime.now()
-        return now.format(MigrationConfig.dateFormatter)
-    }
+    private fun now(): String  = config.dateFormat(LocalDateTime.now())
 
     private fun createMigrationTable() {
-//         由于Gradle不能自动加载数据库的驱动，所以这儿要手动加载, 暂时先加载sqlite的，未来还要加载mysql等各种支持的数据库
-        Class.forName("org.sqlite.JDBC")
         Command().createTable("migrations") {
             column string "name"
         }.executeToDatabase()
@@ -38,7 +31,7 @@ open class CreateTask : DefaultTask() {
     }
 
     @TaskAction
-    fun run() {
+    fun create() {
         createFile()
         createMigrationTable()
     }

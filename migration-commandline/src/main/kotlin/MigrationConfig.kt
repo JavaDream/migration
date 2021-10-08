@@ -1,6 +1,20 @@
+import org.gradle.api.Project
+import java.io.File
+import java.nio.file.Paths
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-object MigrationConfig {
-    const val path = "/tmp/migrations" //未来要改成项目目录
-    val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("YYYYMMDDHHMMSS")
+class MigrationConfig(private val project: Project) {
+    private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("YYYYMMDDHHMMSS")
+    private val migrationDir = "src/main/kotlin/migrations"
+
+    fun migrationPath(path: String = ""): String = Paths.get(
+        project.rootDir.path,
+        migrationDir,
+        path
+    ).toString()
+
+    fun parseDate(date: String): LocalDateTime = LocalDateTime.parse(date, dateFormatter)
+    fun dateFormat(date: LocalDateTime): String = date.format(dateFormatter)
+
 }
