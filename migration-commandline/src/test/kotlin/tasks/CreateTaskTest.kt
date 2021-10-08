@@ -31,7 +31,7 @@ internal class CreateTaskTest {
 
     @AfterEach
     fun clear() {
-//        clearMigrations()
+        clearMigrations()
     }
 
     @Test
