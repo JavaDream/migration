@@ -3,9 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.5.30"
     id("org.sonarqube") version "3.3"
-    id("maven-publish")
     id("jacoco")
-    id("info.dreamcoder.devtools") version "1.3.2"
+    id("info.dreamcoder.devtools") version "1.3.7"
 }
 
 repositories {
@@ -16,10 +15,11 @@ subprojects {
     apply {
         plugin("org.jetbrains.kotlin.jvm")
         plugin("jacoco")
+        plugin("maven-publish")
     }
 
     dependencies {
-        implementation("info.dreamcoder:kotby:0.2")
+        implementation("info.dreamcoder:kotby:0.4")
         testImplementation("org.xerial:sqlite-jdbc:3.36.0.2")
         testImplementation("io.mockk:mockk:1.12.0")
     }
@@ -47,9 +47,6 @@ sonarqube {
 }
 
 allprojects {
-    apply(plugin = "maven-publish")
-
-
     repositories {
         mavenCentral()
         maven("https://jitpack.io")
@@ -71,22 +68,6 @@ allprojects {
         useJUnitPlatform()
     }
 
-    publishing {
-        publications {
-            create<MavenPublication>("maven") {
-                groupId = project.group.toString()
-                artifactId = project.name
-                version = project.version.toString()
-
-                from(components["kotlin"])
-            }
-        }
-
-        repositories {
-            mavenLocal()
-        }
-
-    }
 }
 
 

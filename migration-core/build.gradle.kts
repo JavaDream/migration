@@ -10,3 +10,19 @@ dependencies {
     testImplementation("io.mockk:mockk:1.12.0")
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = project.group.toString()
+            artifactId = project.rootProject.name
+            version = project.version.toString()
+
+            from(components["kotlin"])
+        }
+    }
+
+    repositories {
+        mavenLocal()
+    }
+
+}

@@ -15,11 +15,12 @@ internal class MigrationTest {
         project.pluginManager.hasPlugin(pluginId)
     }
 
+
     @Test
     @DisplayName("注册了插件之后，就会有 gradle migration.create 命令")
     fun shouldCreateMigrationCreateTask() {
         val project = ProjectBuilder.builder().build()
-        project.pluginManager.apply("info.dreamcoder.migration")
+        project.pluginManager.apply(pluginId)
         project.tasks.getByName("migration.create").shouldNotBeNull()
     }
 

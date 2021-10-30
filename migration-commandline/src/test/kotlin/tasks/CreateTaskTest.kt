@@ -3,13 +3,13 @@ package tasks
 import jdbc.Database
 import org.amshove.kluent.*
 import org.gradle.api.Project
-import org.gradle.api.Task
 import org.gradle.testfixtures.ProjectBuilder
-import org.gradle.tooling.GradleConnector
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+
+import Migration
 
 import java.io.File
 
@@ -19,13 +19,14 @@ internal class CreateTaskTest {
     private val project: Project = ProjectBuilder
         .builder()
         .withProjectDir(File(testProjectPath))
-        .build()
+        .build().also {
+            it.pluginManager.apply("info.dreamcoder.migration")
+        }
 
-    private lateinit var task: CreateTask
+    private var task: CreateTask = project.tasks.getByName("migration.create") as CreateTask
 
     @BeforeEach
     fun initTest() {
-        task = project.tasks.create("migration.create", CreateTask::class.java)
         task.create()
     }
 
@@ -37,7 +38,7 @@ internal class CreateTaskTest {
     @Test
     @DisplayName("CreateTask任务能正确的创建迁移文件")
     fun shouldCreateMigrationFileWhenTaskRun() {
-        val files = File(task.config.migrationPath()).list()
+        val files = File(MigrationConfig.config.migrationPath()).list()
 
         files.shouldNotBeNull()
         files.size shouldBeEqualTo 1
@@ -51,8 +52,16 @@ internal class CreateTaskTest {
         Database.instance.tableExists("migrations").shouldBeTrue()
     }
 
+    @Test
+    @DisplayName("CreateTask任务执行后，migrations的文件内容包含package名")
+    fun migrationFileShouldContainsPackageNameWhenTaskRun() {
+        val files = File(MigrationConfig.config.migrationPath()).listFiles()
+
+        File(files[0].absoluteFile.toString()).readText() shouldContain "package migrations"
+    }
+
     private fun clearMigrations() {
-        val dir = File(task.config.migrationPath())
+        val dir = File(MigrationConfig.config.migrationPath())
         dir.deleteRecursively()
     }
 }

@@ -5,7 +5,20 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class MigrationConfig(private val project: Project) {
-    private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("YYYYMMDDHHMMSS")
+
+    companion object {
+        private var mConfig: MigrationConfig? = null
+        val config: MigrationConfig
+            get() {
+                return mConfig ?: throw AssertionError("config 需要初始化")
+            }
+
+        fun create(project: Project) {
+            mConfig = MigrationConfig(project)
+        }
+    }
+
+    private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd- HH:mm:ss")
     private val migrationDir = "src/main/kotlin/migrations"
 
     fun migrationPath(path: String = ""): String = Paths.get(
