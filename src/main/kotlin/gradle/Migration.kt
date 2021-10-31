@@ -12,6 +12,7 @@ class Migration : Plugin<Project> {
         initDatabaseDriver()
 
         registerTask(target, "migration.create", CreateTask::class.java)
+        registerTask(target, "migration.up", CreateTask::class.java)
     }
 
     private fun initConfig(project: Project) {

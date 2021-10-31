@@ -16,7 +16,6 @@ internal class CreateTaskTest {
 
     private val project: Project = ProjectBuilder
         .builder()
-//        .withProjectDir(File(testProjectPath))
         .build().also {
             it.pluginManager.apply("info.dreamcoder.migration")
         }
@@ -62,8 +61,4 @@ internal class CreateTaskTest {
         val dir = File(MigrationConfig.config.migrationPath())
         dir.deleteRecursively()
     }
-}
-
-private class Delegate() {
-
 }
