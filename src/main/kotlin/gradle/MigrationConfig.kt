@@ -1,7 +1,6 @@
 package gradle
 
 import org.gradle.api.Project
-import java.io.File
 import java.nio.file.Paths
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
