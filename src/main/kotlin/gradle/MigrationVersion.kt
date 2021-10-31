@@ -1,9 +1,12 @@
+package gradle
+
+import camelize
 import java.io.File
 import java.time.LocalDateTime
 
 class MigrationVersion {
-    private lateinit var versionNumber: String
-    private lateinit var name: String
+    private var versionNumber: String
+    private var name: String
 
     constructor(name: String) {
         this.name = name.camelize()
@@ -20,8 +23,8 @@ class MigrationVersion {
     private fun fileName() = "${name}_${versionNumber}.kt"
 
     fun filePath(): String {
-        val file = File(MigrationConfig.config.migrationPath())
-        file.mkdir()
+        val dir = File(MigrationConfig.config.migrationPath())
+        dir.mkdirs()
         return MigrationConfig.config.migrationPath(fileName())
     }
 

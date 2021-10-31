@@ -1,7 +1,9 @@
+package gradle
+
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
-import tasks.CreateTask
+import gradle.tasks.CreateTask
 
 class Migration : Plugin<Project> {
 
@@ -23,7 +25,7 @@ class Migration : Plugin<Project> {
     }
 
     private fun <T : Task> registerTask(project: Project, name: String, type: Class<T>) {
-        project.tasks.create("migration.create", CreateTask::class.java) {
+        project.tasks.create(name, type) {
             it.group = "dreamcoder"
         }
     }

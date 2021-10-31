@@ -1,5 +1,6 @@
-package tasks
+package gradle.tasks
 
+import gradle.MigrationConfig
 import jdbc.Database
 import org.amshove.kluent.*
 import org.gradle.api.Project
@@ -9,16 +10,13 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-import Migration
-
 import java.io.File
 
 internal class CreateTaskTest {
-    private val testProjectPath = "/Users/jimxl/project/java/migration/test_project"
 
     private val project: Project = ProjectBuilder
         .builder()
-        .withProjectDir(File(testProjectPath))
+//        .withProjectDir(File(testProjectPath))
         .build().also {
             it.pluginManager.apply("info.dreamcoder.migration")
         }

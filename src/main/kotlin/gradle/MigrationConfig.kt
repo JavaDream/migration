@@ -1,3 +1,5 @@
+package gradle
+
 import org.gradle.api.Project
 import java.io.File
 import java.nio.file.Paths
@@ -18,7 +20,7 @@ class MigrationConfig(private val project: Project) {
         }
     }
 
-    private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd- HH:mm:ss")
+    private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss")
     private val migrationDir = "src/main/kotlin/migrations"
 
     fun migrationPath(path: String = ""): String = Paths.get(

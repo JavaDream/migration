@@ -1,5 +1,6 @@
-package tasks
+package gradle.tasks
 
+import gradle.MigrationConfig
 import jdbc.Database
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction

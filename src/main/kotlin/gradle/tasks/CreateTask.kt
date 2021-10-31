@@ -1,10 +1,12 @@
-package tasks
+package gradle.tasks
 
+import gradle.MigrationConfig
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 import java.time.LocalDateTime
-import MigrationVersion
+import gradle.MigrationVersion
+import tasks.Command
 
 open class CreateTask : BaseTask() {
 

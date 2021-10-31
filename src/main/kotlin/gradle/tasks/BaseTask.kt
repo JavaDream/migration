@@ -1,4 +1,4 @@
-package tasks
+package gradle.tasks
 
 import org.gradle.api.DefaultTask
 

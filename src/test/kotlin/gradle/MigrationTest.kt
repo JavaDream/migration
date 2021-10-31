@@ -1,3 +1,5 @@
+package gradle
+
 import org.amshove.kluent.shouldNotBeNull
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.jupiter.api.DisplayName
